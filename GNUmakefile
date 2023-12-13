@@ -1,7 +1,7 @@
 # Nuke built-in rules and variables.
 override MAKEFLAGS += -rR
 
-override IMAGE_NAME := barebones
+override IMAGE_NAME := kernel
 
 # Convenience macro to reliably declare user overridable variables.
 define DEFAULT_VAR =
@@ -25,7 +25,27 @@ all-hdd: $(IMAGE_NAME).hdd
 
 .PHONY: run
 run: $(IMAGE_NAME).iso
-	qemu-system-x86_64 -M q35 -m 2G -cdrom $(IMAGE_NAME).iso -boot d -serial stdio
+	qemu-system-x86_64 -M q35 -m 128M -cdrom $(IMAGE_NAME).iso -boot d -serial stdio
+
+.PHONY: run-gdb
+run-gdb: $(IMAGE_NAME).iso
+	qemu-system-x86_64 -s -S -M q35 -m 256M -cdrom $(IMAGE_NAME).iso -boot d -serial stdio
+
+.PHONY: run-int
+run-int: $(IMAGE_NAME).iso
+	qemu-system-x86_64 -M q35 -m 256M -cdrom $(IMAGE_NAME).iso -boot d -serial stdio -d int 2> log.txt 1> log.txt
+
+# bochsrc.txt contents:
+# megs: 256
+# display_library: sdl2
+# sound: driver=none, waveoutdrv=dummy, midioutdrv=dummy
+# romimage: file=/usr/share/bochs/BIOS-bochs-latest
+# vgaromimage: file=/usr/share/bochs/VGABIOS-lgpl-latest
+# ata0-master: type=cdrom, path=$(IMAGE_NAME).iso, status=inserted
+# boot: cdrom
+
+.PHONY: run-bochs
+run-bochs: $(IMAGE_NAME).iso
 
 .PHONY: run-uefi
 run-uefi: ovmf $(IMAGE_NAME).iso

@@ -1,0 +1,38 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch with GDB",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/gryt/okeOS2/kernel/kernel.elf",
+            "cwd": "/home/gryt/okeOS2/",
+            "args": [],
+            "targetArchitecture": "x64",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "miDebuggerArgs": "",
+            "customLaunchSetupCommands": [
+                {
+                    "text": "target remote localhost:1234",
+                    "description": "Connect to QEMU remote debugger"
+                }
+            ],
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "text": "file /home/gryt/okeOS2/kernel/kernel.elf",
+                    "description": "Load binary."
+                },
+                {
+                    "text": "break exception_handler",
+                    "description": "Break on exception handler."
+                }
+            ]
+        }
+    ]
+}

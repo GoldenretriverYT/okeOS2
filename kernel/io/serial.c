@@ -1,4 +1,5 @@
 #include "serial.h"
+#define BOCHS_DEBUG
 
 int init_serial() {
    outb(PORT + 1, 0x00);    // Disable all interrupts
@@ -40,6 +41,10 @@ void write_serial(char a) {
    while (is_transmit_empty() == 0);
  
    outb(PORT,a);
+   #ifdef BOCHS_DEBUG
+   // also write bochs output
+   outb(0xe9, a);
+   #endif
 }
 
 void write_serial_string(char* a) {

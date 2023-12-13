@@ -18,8 +18,7 @@ endef
 # It is highly recommended to use a custom built cross toolchain to build a kernel.
 # We are only using "cc" as a placeholder here. It may work by using
 # the host system's toolchain, but this is not guaranteed.
-override DEFAULT_CC := cc
-$(eval $(call DEFAULT_VAR,CC,$(DEFAULT_CC)))
+override CC := $$HOME/opt/cross/bin/x86_64-elf-gcc
 
 # Same thing for "ld" (the linker).
 override DEFAULT_LD := ld
@@ -30,15 +29,15 @@ override DEFAULT_CFLAGS := -g -O2 -pipe
 $(eval $(call DEFAULT_VAR,CFLAGS,$(DEFAULT_CFLAGS)))
 
 # User controllable C preprocessor flags. We set none by default.
-override DEFAULT_CPPFLAGS :=
+override DEFAULT_CPPFLAGS := -g
 $(eval $(call DEFAULT_VAR,CPPFLAGS,$(DEFAULT_CPPFLAGS)))
 
 # User controllable nasm flags.
 override DEFAULT_NASMFLAGS := -F dwarf -g
 $(eval $(call DEFAULT_VAR,NASMFLAGS,$(DEFAULT_NASMFLAGS)))
 
-# User controllable linker flags. We set none by default.
-override DEFAULT_LDFLAGS :=
+# User controllable linker flags. We set none by default except -g and mapfile.
+override DEFAULT_LDFLAGS := -g -Map kernel.map
 $(eval $(call DEFAULT_VAR,LDFLAGS,$(DEFAULT_LDFLAGS)))
 
 # Internal C flags that should not be changed by the user.

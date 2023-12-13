@@ -1,0 +1,7 @@
+megs: 256
+display_library: sdl2
+sound: driver=none, waveoutdrv=dummy, midioutdrv=dummy
+romimage: file=/usr/share/bochs/BIOS-bochs-latest
+vgaromimage: file=/usr/share/bochs/VGABIOS-lgpl-latest
+ata0-master: type=cdrom, path=kernel.iso, status=inserted
+boot: cdrom

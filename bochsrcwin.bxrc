@@ -1,0 +1,6 @@
+megs: 256
+display_library: win32
+sound: driver=none, waveoutdrv=dummy, midioutdrv=dummy
+ata0-master: type=cdrom, path=kernel.iso, status=inserted
+boot: cdrom
+log: bochsout.txt

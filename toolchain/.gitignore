@@ -1,0 +1,6 @@
+*.tar.gz*
+binutils-2.40/
+build-binutils/
+build-gcc/
+gcc-12.2.0/
+build-binutils/

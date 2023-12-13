@@ -1,0 +1,32 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "*.spag": "csharp",
+        "io_context": "c",
+        "rope": "c",
+        "random": "c",
+        "*.tcc": "c",
+        "compare": "c",
+        "*.inc": "c",
+        "hash_map": "c",
+        "hash_set": "c",
+        "buffer": "c",
+        "internet": "c",
+        "socket": "c",
+        "string_view": "c",
+        "slist": "c",
+        "array": "c",
+        "bitset": "c",
+        "ranges": "c",
+        "span": "c",
+        "stacktrace": "c",
+        "regex": "c",
+        "dynamic_bitset": "c",
+        "initializer_list": "c",
+        "utility": "c",
+        "global.h": "c",
+        "gdt.h": "c",
+        "pmm.h": "c",
+        "charconv": "c"
+    }
+}

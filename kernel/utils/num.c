@@ -49,24 +49,29 @@ void itoa_u64(uint64_t value, char* str, int base) {
     }
 
     char* ptr = str;
-    char* ptr1 = str;
-    char tmp_char;
+    char* ptr1;
     uint64_t tmp_value;
 
     do {
-        tmp_value = value;
+        tmp_value = value % base;
         value /= base;
-        *ptr++ = "zyxwvutsrqponmlkjihgfedcba9876543210123456789abcdefghijklmnopqrstuvwxyz"[35 + (tmp_value - value * base)];
+        if (tmp_value < 10) {
+            *ptr++ = '0' + tmp_value;
+        } else {
+            *ptr++ = 'a' + (tmp_value - 10);
+        }
     } while (value);
 
     *ptr-- = '\0';
 
-    while (ptr1 < ptr) {
-        tmp_char = *ptr;
-        *ptr-- = *ptr1;
-        *ptr1++ = tmp_char;
+    // Reverse the string
+    for (ptr1 = str; ptr1 < ptr; ptr1++, ptr--) {
+        char tmp_char = *ptr;
+        *ptr = *ptr1;
+        *ptr1 = tmp_char;
     }
 }
+
 
 void itoa_u32(uint32_t value, char* str, int base) {
     itoa_u64(value, str, base);

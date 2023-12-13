@@ -2,6 +2,13 @@
 #include <stdint.h>
 #include <stddef.h>
 
+typedef struct HHDM
+{
+    uint64_t offset;
+} __attribute__((packed)) HHDM;
+
+extern HHDM hhdm;
+
 void *memcpy(void *dest, const void *src, size_t n);
 
 void *memset(void *s, int c, size_t n);
