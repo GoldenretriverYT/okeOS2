@@ -1,5 +1,6 @@
 [global reload_segments]
 
+; ye this is yoinked from the osdev wiki
 reload_segments:
    ; Reload CS register:
    PUSH 0x08                 ; Push code segment to stack, 0x08 is a stand-in for your code segment

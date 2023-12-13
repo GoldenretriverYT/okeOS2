@@ -108,7 +108,7 @@ void _start(void) {
     pmm_free(addr1, 4096 / PMM_PAGE_SIZE);
     pmm_free(addr2, 16384 / PMM_PAGE_SIZE);
 
-    write_serial_string("If it didn't crash, PMM works!\n");
+    write_serial_string("If it didn't crash, PMM at least kinda works.\n");
 
     hcf();
 }
