@@ -138,6 +138,8 @@ void* pmm_alloc(uint64_t pages) {
                 PMM_DEBUG_U64(pages * PMM_PAGE_SIZE / 1024);
                 PMM_DEBUG(" KiB)\n");
 
+                bitmap_index++;
+
                 return (void*)(addr * PMM_PAGE_SIZE);
             }
         }

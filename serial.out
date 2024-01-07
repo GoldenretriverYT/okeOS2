@@ -1,10 +1,57 @@
 === okeOS2 ===
 Framebuffer: 1024 x 768 x 32
-HHDM: ffff800000000000
+Kernel:
+  PhysBase: 0xfc14000
+  VirtBase: 0xffffffff80000000
+  HHDM: ffff800000000000
 Initialising GDT...
 Initialised GDT.
 Initialising IDT...
 Testing...
-Setting handler for vector 30 to ffffffff80000330
+Setting handler for vector 20 to ffffffff80002360
 IRQ 0x20
 Initialised IDT.
+Initialising PMM...
+Entry: Base 0x1000 Length 0x50000 (0 MiB) Type 5
+Entry: Base 0x51000 Length 0x4e000 (0 MiB) Type 0
+Entry: Base 0x9f000 Length 0x1000 (0 MiB) Type 1
+Entry: Base 0xe8000 Length 0x18000 (0 MiB) Type 1
+Entry: Base 0x100000 Length 0xfb10000 (251 MiB) Type 0
+Entry: Base 0xfc10000 Length 0x4000 (0 MiB) Type 5
+Entry: Base 0xfc14000 Length 0xf000 (0 MiB) Type 6
+Entry: Base 0xfc23000 Length 0x26000 (0 MiB) Type 5
+Entry: Base 0xfc49000 Length 0x311000 (3 MiB) Type 0
+Entry: Base 0xff5a000 Length 0x96000 (0 MiB) Type 5
+Entry: Base 0xfff0000 Length 0x10000 (0 MiB) Type 2
+Entry: Base 0xe0000000 Length 0x300000 (3 MiB) Type 7
+Entry: Base 0xfffc0000 Length 0x40000 (0 MiB) Type 1
+Initialised PMM.
+Alloc PMM test (4096, 16384)...
+PMM: Allocating 1 pages (4 KiB)...
+PMM: Allocated 1 pages at 0x51000 (4 KiB)
+PMM: Allocating 4 pages (16 KiB)...
+PMM: Allocated 4 pages at 0x52000 (16 KiB)
+Free PMM test (4096, 16384)...
+If it didn't crash, PMM at least kinda works.
+Initialising terminal...
+term_init: &_binary_zap_light16_psf_start = ffffffff8000c094
+term_init: fb->address = ffff8000e0000000
+term_init: fb->pitch = 4096
+term_init: psf->characterSize = 16
+?.??? Terminal initialised with framebuffer at ffff8000e0000000
+?.??? Enabling Paging...
+Paging: kvirt_addr: ffffffff80000000
+Paging: kphys_addr: fc14000
+Paging: Creating new PML4
+PMM: Allocating 1 pages (4 KiB)...
+PMM: Allocated 1 pages at 0x51000 (4 KiB)
+Paging: Created new PML4, at 0xffff800000051000
+Paging: Identity mapping first 1 MiB
+Paging: Mapping page at virtual address 0 to physical address 0 with flags 3
+Paging: PML4 index: 0
+Paging: PDPT index: 0
+Paging: PD index: 0
+Paging: PT index: 0
+Paging: PML4: ffff800000051000
+Paging: PML4[pml4_index]: ffff800000051000
+PANIC: Unexpected: Page fault

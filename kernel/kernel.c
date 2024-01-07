@@ -7,6 +7,8 @@
 #include "core/gdt.h"
 #include "core/idt.h"
 #include "memory/pmm.h"
+#include "term/term.h"
+#include "term/kprintf.h"
 
 // The Limine requests can be placed anywhere, but it is important that
 // the compiler does not optimise them away, so, usually, they should
@@ -110,5 +112,12 @@ void _start(void) {
 
     write_serial_string("If it didn't crash, PMM at least kinda works.\n");
 
+    write_serial_string("Initialising terminal...\n");
+    term_init(framebuffer);
+    kprintf("?.??? Terminal initialised with framebuffer at %llx\n", framebuffer->address);
+
+    kprintf("?.??? Enabling Paging...\n");
+    init_paging(kernel_request.response->virtual_base, kernel_request.response->physical_base, memmap_request.response);
+    kprintf("?.??? Paging enabled\n");
     hcf();
 }

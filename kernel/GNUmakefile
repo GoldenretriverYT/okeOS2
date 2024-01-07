@@ -99,7 +99,7 @@ limine.h:
 
 # Link rules for the final kernel executable.
 $(KERNEL): $(OBJ)
-	$(LD) $(OBJ) $(LDFLAGS) -o $@
+	$(LD) $(OBJ) zap-light16.o $(LDFLAGS) -o $@
 
 # Include header dependencies.
 -include $(HEADER_DEPS)

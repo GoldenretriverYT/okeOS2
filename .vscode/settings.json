@@ -27,6 +27,8 @@
         "global.h": "c",
         "gdt.h": "c",
         "pmm.h": "c",
-        "charconv": "c"
+        "charconv": "c",
+        "paging.h": "c",
+        "kprintf.h": "c"
     }
 }
