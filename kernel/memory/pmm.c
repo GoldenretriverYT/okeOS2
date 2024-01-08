@@ -74,9 +74,17 @@ void init_pmm(struct limine_memmap_entry** memmap, uint64_t memmap_entries) {
         }
     }
 
-    // Mark the bitmap as allocated.
-    for (uint64_t i = 0; i < bitmap_pages; i++) {
-        pmm_set_bitmap(i, 1);
+    if (!bitmap) {
+        panic("PMM: Failed to find a suitable area for the bitmap.\n");
+        return;
+    }else {
+        write_serial_string("PMM: Found a suitable area for the bitmap at 0x");
+        write_serial_u64((uint64_t)bitmap, 16);
+        write_serial_string(" (");
+        write_serial_u64(bitmap_size / 1024, 10);
+        write_serial_string(" KiB). Bitmap_Pages = ");
+        write_serial_u64(bitmap_pages, 10);
+        write_serial_string("\n");
     }
 
     // Mark free areas as free.
@@ -90,13 +98,37 @@ void init_pmm(struct limine_memmap_entry** memmap, uint64_t memmap_entries) {
         uint64_t start = entry->base / PMM_PAGE_SIZE;
         uint64_t end = (entry->base + entry->length) / PMM_PAGE_SIZE;
 
+        write_serial_string("PMM: Marking pages ");
+        write_serial_u64(start, 10);
+        write_serial_string(" (0x");
+        write_serial_u64(start * PMM_PAGE_SIZE, 16);
+        write_serial_string(") to ");
+        write_serial_u64(end, 10);
+        write_serial_string(" (0x");
+        write_serial_u64(end * PMM_PAGE_SIZE, 16);
+        write_serial_string(") as free.\n");
+
         for (uint64_t j = start; j < end; j++) {
             pmm_set_bitmap(j, 0);
         }
     }
+
+    // Mark the bitmap itself as allocated.
+    for (uint64_t i = (uint64_t)HIHA2PHYS((uint64_t)bitmap) / PMM_PAGE_SIZE; i < (uint64_t)HIHA2PHYS((uint64_t)bitmap) / PMM_PAGE_SIZE + bitmap_size / PMM_PAGE_SIZE; i++) {
+        write_serial_string("PMM: Marking bitmap page ");
+        write_serial_u64(i, 10);
+        write_serial_string(" (0x");
+        write_serial_u64(i * PMM_PAGE_SIZE, 16);
+        write_serial_string(") as allocated.\n");
+        pmm_set_bitmap(i, 1);
+    }
 }
 
 void* pmm_alloc(uint64_t pages) {
+    return pmm_alloc_purpose(pages, "UKWN");
+}
+
+void* pmm_alloc_purpose(uint64_t pages, char purpose[5]) {
     if(pages > 1024 * 256) {
         write_serial_string("PMM: Tried to allocate ");
         write_serial_u64(pages, 10);
@@ -108,7 +140,9 @@ void* pmm_alloc(uint64_t pages) {
     PMM_DEBUG_U64(pages);
     PMM_DEBUG(" pages (");
     PMM_DEBUG_U64(pages * PMM_PAGE_SIZE / 1024);
-    PMM_DEBUG(" KiB)...\n");
+    PMM_DEBUG(" KiB) for purpose ");
+    PMM_DEBUG(purpose);
+    PMM_DEBUG("\n");
 
     for (; bitmap_index < bitmap_pages; bitmap_index++) {
         if (pmm_get_bitmap(bitmap_index)) {
@@ -117,15 +151,16 @@ void* pmm_alloc(uint64_t pages) {
 
         uint64_t free_pages = 0;
 
-        for (uint64_t i = bitmap_index; i < bitmap_pages; i++) {
-            if (pmm_get_bitmap(i)) {
+        for (; bitmap_index < bitmap_pages; bitmap_index++) {
+            if (pmm_get_bitmap(bitmap_index)) {
+                free_pages = 0;
                 break;
             }
 
             free_pages++;
 
             if (free_pages == pages) {
-                uint64_t addr = i - pages + 1;
+                uint64_t addr = bitmap_index - pages + 1;
                 for (uint64_t j = addr; j < addr + pages; j++) {
                     pmm_set_bitmap(j, 1);
                 }

@@ -114,10 +114,10 @@ void _start(void) {
 
     write_serial_string("Initialising terminal...\n");
     term_init(framebuffer);
-    kprintf("?.??? Terminal initialised with framebuffer at %llx\n", framebuffer->address);
+    kprintf("Terminal initialised with framebuffer at %llx\n", framebuffer->address);
 
-    kprintf("?.??? Enabling Paging...\n");
+    kprintf("Enabling Paging...\n");
     init_paging(kernel_request.response->virtual_base, kernel_request.response->physical_base, memmap_request.response);
-    kprintf("?.??? Paging enabled\n");
+    kprintf("if you can read this, paging works :yippee:\n");
     hcf();
 }

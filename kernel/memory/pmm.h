@@ -3,8 +3,9 @@
 #include <limine.h>
 #include "../kernel.h"
 #include "../io/serial.h"
+#include "../core/panic.h"
 
-//#define PMM_DEBUG_ENABLED
+#define PMM_DEBUG_ENABLED
 
 #ifdef PMM_DEBUG_ENABLED
     #define PMM_DEBUG(str) write_serial_string(str);
@@ -23,4 +24,5 @@
 
 void init_pmm(struct limine_memmap_entry** memmap, uint64_t memmap_entries);
 void* pmm_alloc(uint64_t pages);
+void* pmm_alloc_purpose(uint64_t pages, char purpose[5]);
 void pmm_free(void* addr, uint64_t pages);

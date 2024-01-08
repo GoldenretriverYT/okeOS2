@@ -20,7 +20,7 @@ typedef struct page_table_t {
 /// @brief Initialise paging
 /// @param kernel_phys_addr 
 /// @param kernel_virt_addr 
-void init_paging(uint64_t kernel_phys_addr, uint64_t kernel_virt_addr, struct limine_memmap_response* memmap_response);
+void init_paging(uint64_t kernel_phys_addr, uint64_t kernel_virt_addr, struct limine_memmap_response* memmap_response, struct limine_framebuffer* fb);
 
 /// @brief Create a new PML4
 /// @return 
