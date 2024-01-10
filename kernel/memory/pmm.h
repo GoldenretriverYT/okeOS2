@@ -5,7 +5,7 @@
 #include "../io/serial.h"
 #include "../core/panic.h"
 
-#define PMM_DEBUG_ENABLED
+//#define PMM_DEBUG_ENABLED
 
 #ifdef PMM_DEBUG_ENABLED
     #define PMM_DEBUG(str) write_serial_string(str);

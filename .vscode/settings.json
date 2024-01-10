@@ -29,6 +29,9 @@
         "pmm.h": "c",
         "charconv": "c",
         "paging.h": "c",
-        "kprintf.h": "c"
+        "kprintf.h": "c",
+        "panic.h": "c",
+        "term.h": "c",
+        "acpi.h": "c"
     }
 }

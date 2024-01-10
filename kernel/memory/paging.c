@@ -34,19 +34,13 @@ void init_paging(uint64_t _kvirt_addr, uint64_t _kphys_addr, struct limine_memma
 
     // Map the kernel and other important stuff
     kprintf("Paging: Mapping kernel and other important stuff\n");
-    for(int memmapIdx = 0; memmapIdx < memmap_response->entry_count; memmapIdx++) {
+    for(uint64_t memmapIdx = 0; memmapIdx < memmap_response->entry_count; memmapIdx++) {
         struct limine_memmap_entry* entry = memmap_response->entries[memmapIdx];
-
-        kprintf("Entry in map at addr %llx\n", (uint64_t)entry);
 
         //if(entry->type == LIMINE_MEMMAP_USABLE) continue;
 
         uint64_t start = entry->base;
         uint64_t end = entry->base + entry->length;
-
-        kprintf("Entry: Base 0x%llx Length 0x%llx (", entry->base, entry->length);
-        kprintf("%llu MiB) Type %llu\n", entry->length / 1024 / 1024, entry->type);
-
         //if((entry->base == 0xb0000000) && (entry->length = 0x10000000)) dbg = 1; else dbg = 0;
         for(uint64_t i = start; i < end; i += PAGE_SIZE) {
             uint64_t virt = PHYS2HIHA(i);
@@ -59,14 +53,6 @@ void init_paging(uint64_t _kvirt_addr, uint64_t _kphys_addr, struct limine_memma
             map_page(kernel_pml4, i, virt, VMM_FLAG_PRESENT | VMM_FLAG_WRITABLE);
         }
     }
-
-    // For some odd reason, the framebuffer is NOT in the memory map despite LIMINE_MEMMAP_FRAMEBUFFER existing ?! So we have to map it manually
-    kprintf("Paging: Mapping framebuffer\n");
-    dbg = 1;
-    for(uint64_t i = align_down((uint64_t)(fb->address), PAGE_SIZE); i < align_up((uint64_t)(fb->address) + fb->height * fb->pitch, PAGE_SIZE); i += PAGE_SIZE) {
-        map_page(kernel_pml4, i, PHYS2HIHA(i), VMM_FLAG_PRESENT | VMM_FLAG_WRITABLE);
-    }
-    dbg = 0;
 
     kprintf("Paging: Mapped kernel and other important stuff\n");
 

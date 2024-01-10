@@ -4,12 +4,14 @@ static struct limine_framebuffer* fb;
 static uint64_t term_chr_x = 0;
 static uint64_t term_chr_y = 0;
 static PSF1_Header* term_font;
+static uint8_t term_enabled = 0;
 
 void load_psf() {
     term_font = (PSF1_Header*)&_binary_zap_light16_psf_start;
 }
 
 void term_init(struct limine_framebuffer* _fb) {
+    term_enabled = 1;
     fb = _fb;
 
     load_psf();
@@ -31,6 +33,10 @@ void term_init(struct limine_framebuffer* _fb) {
     write_serial_string("\n");
 }
 void term_write(char c) {
+    if (!term_enabled) {
+        return;
+    }
+    
     uint64_t termX = term_chr_x * 8;
     uint64_t termY = term_chr_y * (term_font->characterSize);
 

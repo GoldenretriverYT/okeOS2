@@ -1,14 +1,14 @@
 === okeOS2 ===
-Framebuffer: 1024 x 768 x 32
+Framebuffer: 1024x768x32 at 0xffff8000fd000000
 Kernel:
-  PhysBase: 0xfc01000
+  PhysBase: 0xfc00000
   VirtBase: 0xffffffff80000000
-  HHDM: ffff800000000000
+  HHDM: 0xffff800000000000
 Initialising GDT...
 Initialised GDT.
 Initialising IDT...
 Testing...
-Setting handler for vector 20 to ffffffff80002680
+Setting handler for vector 20 to ffffffff800026f0
 IRQ 0x20
 Initialised IDT.
 Initialising PMM...
@@ -16,10 +16,10 @@ Entry: Base 0x1000 Length 0x50000 (0 MiB) Type 5
 Entry: Base 0x51000 Length 0x4e000 (0 MiB) Type 0
 Entry: Base 0x9fc00 Length 0x400 (0 MiB) Type 1
 Entry: Base 0xf0000 Length 0x10000 (0 MiB) Type 1
-Entry: Base 0x100000 Length 0xfafd000 (250 MiB) Type 0
-Entry: Base 0xfbfd000 Length 0x4000 (0 MiB) Type 5
-Entry: Base 0xfc01000 Length 0x10000 (0 MiB) Type 6
-Entry: Base 0xfc11000 Length 0x27000 (0 MiB) Type 5
+Entry: Base 0x100000 Length 0xfafb000 (250 MiB) Type 0
+Entry: Base 0xfbfb000 Length 0x5000 (0 MiB) Type 5
+Entry: Base 0xfc00000 Length 0x10000 (0 MiB) Type 6
+Entry: Base 0xfc10000 Length 0x28000 (0 MiB) Type 5
 Entry: Base 0xfc38000 Length 0x311000 (3 MiB) Type 0
 Entry: Base 0xff49000 Length 0x96000 (0 MiB) Type 5
 Entry: Base 0xffdf000 Length 0x21000 (0 MiB) Type 1
@@ -29,609 +29,642 @@ Entry: Base 0xfed1c000 Length 0x4000 (0 MiB) Type 1
 Entry: Base 0xfffc0000 Length 0x40000 (0 MiB) Type 1
 PMM: Found a suitable area for the bitmap at 0xffff800000051000 (7 KiB). Bitmap_Pages = 65353
 PMM: Marking pages 81 (0x51000) to 159 (0x9f000) as free.
-PMM: Marking pages 256 (0x100000) to 64509 (0xfbfd000) as free.
+PMM: Marking pages 256 (0x100000) to 64507 (0xfbfb000) as free.
 PMM: Marking pages 64568 (0xfc38000) to 65353 (0xff49000) as free.
 PMM: Marking bitmap page 81 (0x51000) as allocated.
+PMM: Marking bitmap page 82 (0x52000) as allocated.
 Initialised PMM.
 Alloc PMM test (4096, 16384)...
-PMM: Allocating 1 pages (4 KiB) for purpose UKWN
-PMM: Allocated 1 pages at 0x52000 (4 KiB)
-PMM: Allocating 4 pages (16 KiB) for purpose UKWN
-PMM: Allocated 4 pages at 0x53000 (16 KiB)
 Free PMM test (4096, 16384)...
 If it didn't crash, PMM at least kinda works.
 Initialising terminal...
-term_init: &_binary_zap_light16_psf_start = ffffffff8000c494
+term_init: &_binary_zap_light16_psf_start = ffffffff8000c574
 term_init: fb->address = ffff8000fd000000
 term_init: fb->pitch = 4096
 term_init: psf->characterSize = 16
 Terminal initialised with framebuffer at ffff8000fd000000
 Enabling Paging...
 Paging: kvirt_addr: ffffffff80000000
-Paging: kphys_addr: fc01000
+Paging: kphys_addr: fc00000
 Paging: Creating new PML4
-PMM: Allocating 1 pages (4 KiB) for purpose UKWN
-PMM: Allocated 1 pages at 0x52000 (4 KiB)
-Paging: Created new PML4, at 0xffff800000052000
+Paging: Created new PML4, at 0xffff800000053000
 Paging: Identity mapping first 1 MiB
-PMM: Allocating 1 pages (4 KiB) for purpose PDPT
-PMM: Allocated 1 pages at 0x53000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PD  
-PMM: Allocated 1 pages at 0x54000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x55000 (4 KiB)
 Paging: Identity mapped first 1 MiB
 Paging: Mapping kernel and other important stuff
-Entry in map at addr ffff80000ff4a000
-Entry: Base 0x1000 Length 0x50000 (0 MiB) Type 5
-PMM: Allocating 1 pages (4 KiB) for purpose PDPT
-PMM: Allocated 1 pages at 0x56000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PD  
-PMM: Allocated 1 pages at 0x57000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x58000 (4 KiB)
-Entry in map at addr ffff80000ff4a018
-Entry: Base 0x51000 Length 0x4e000 (0 MiB) Type 0
-Entry in map at addr ffff80000ff4a030
-Entry: Base 0x9fc00 Length 0x400 (0 MiB) Type 1
 Paging: Tried to map a page with an unaligned physical address.
-Entry in map at addr ffff80000ff4a048
-Entry: Base 0xf0000 Length 0x10000 (0 MiB) Type 1
-Entry in map at addr ffff80000ff4a060
-Entry: Base 0x100000 Length 0xfafd000 (250 MiB) Type 0
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x59000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x5a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x5b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x5c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x5d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x5e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x5f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x60000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x61000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x62000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x63000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x64000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x65000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x66000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x67000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x68000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x69000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x6a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x6b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x6c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x6d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x6e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x6f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x70000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x71000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x72000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x73000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x74000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x75000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x76000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x77000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x78000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x79000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x7a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x7b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x7c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x7d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x7e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x7f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x80000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x81000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x82000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x83000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x84000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x85000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x86000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x87000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x88000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x89000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x8a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x8b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x8c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x8d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x8e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x8f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x90000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x91000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x92000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x93000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x94000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x95000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x96000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x97000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x98000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x99000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x9a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x9b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x9c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x9d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x9e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x100000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x101000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x102000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x103000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x104000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x105000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x106000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x107000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x108000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x109000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x10a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x10b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x10c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x10d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x10e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x10f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x110000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x111000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x112000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x113000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x114000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x115000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x116000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x117000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x118000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x119000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x11a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x11b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x11c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x11d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x11e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x11f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x120000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x121000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x122000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x123000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x124000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x125000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x126000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x127000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x128000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x129000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x12a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x12b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x12c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x12d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x12e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x12f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x130000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x131000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x132000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x133000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x134000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x135000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x136000 (4 KiB)
-Entry in map at addr ffff80000ff4a078
-Entry: Base 0xfbfd000 Length 0x4000 (0 MiB) Type 5
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x137000 (4 KiB)
-Entry in map at addr ffff80000ff4a090
-Entry: Base 0xfc01000 Length 0x10000 (0 MiB) Type 6
-PMM: Allocating 1 pages (4 KiB) for purpose PDPT
-PMM: Allocated 1 pages at 0x138000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PD  
-PMM: Allocated 1 pages at 0x139000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x13a000 (4 KiB)
-Entry in map at addr ffff80000ff4a0a8
-Entry: Base 0xfc11000 Length 0x27000 (0 MiB) Type 5
-Entry in map at addr ffff80000ff4a0c0
-Entry: Base 0xfc38000 Length 0x311000 (3 MiB) Type 0
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x13b000 (4 KiB)
-Entry in map at addr ffff80000ff4a0d8
-Entry: Base 0xff49000 Length 0x96000 (0 MiB) Type 5
-Entry in map at addr ffff80000ff4a0f0
-Entry: Base 0xffdf000 Length 0x21000 (0 MiB) Type 1
-Entry in map at addr ffff80000ff4a108
-Entry: Base 0xb0000000 Length 0x10000000 (256 MiB) Type 1
-PMM: Allocating 1 pages (4 KiB) for purpose PD  
-PMM: Allocated 1 pages at 0x13c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x13d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x13e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x13f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x140000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x141000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x142000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x143000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x144000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x145000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x146000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x147000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x148000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x149000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x14a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x14b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x14c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x14d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x14e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x14f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x150000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x151000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x152000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x153000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x154000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x155000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x156000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x157000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x158000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x159000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x15a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x15b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x15c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x15d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x15e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x15f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x160000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x161000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x162000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x163000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x164000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x165000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x166000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x167000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x168000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x169000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x16a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x16b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x16c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x16d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x16e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x16f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x170000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x171000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x172000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x173000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x174000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x175000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x176000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x177000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x178000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x179000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x17a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x17b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x17c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x17d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x17e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x17f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x180000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x181000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x182000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x183000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x184000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x185000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x186000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x187000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x188000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x189000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x18a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x18b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x18c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x18d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x18e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x18f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x190000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x191000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x192000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x193000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x194000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x195000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x196000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x197000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x198000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x199000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x19a000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x19b000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x19c000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x19d000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x19e000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x19f000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1a0000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1a1000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1a2000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1a3000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1a4000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1a5000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1a6000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1a7000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1a8000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1a9000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1aa000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1ab000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1ac000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1ad000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1ae000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1af000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1b0000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1b1000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1b2000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1b3000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1b4000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1b5000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1b6000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1b7000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1b8000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1b9000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1ba000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1bb000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1bc000 (4 KiB)
-Entry in map at addr ffff80000ff4a120
-Entry: Base 0xfd000000 Length 0x300000 (3 MiB) Type 7
-PMM: Allocating 1 pages (4 KiB) for purpose PD  
-PMM: Allocated 1 pages at 0x1bd000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1be000 (4 KiB)
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1bf000 (4 KiB)
-Entry in map at addr ffff80000ff4a138
-Entry: Base 0xfed1c000 Length 0x4000 (0 MiB) Type 1
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1c0000 (4 KiB)
-Entry in map at addr ffff80000ff4a150
-Entry: Base 0xfffc0000 Length 0x40000 (0 MiB) Type 1
-PMM: Allocating 1 pages (4 KiB) for purpose PT  
-PMM: Allocated 1 pages at 0x1c1000 (4 KiB)
-Paging: Mapping framebuffer
 Paging: Mapped kernel and other important stuff
 Paging: Switching to new PML4
 Paging: Switched to new PML4
 if you can read this, paging works :yippee:
+Initialising ACPI...
+ACPI RSDP/XSDP at ffff8000000f59f0
+Found ACPI revision 0 (version 1.0)
+ACPI RSDT/XSDT at ffff80000ffe22ba
+ACPI RSDT at ffff80000ffe22ba
+ACPI RSDT has 5 entries
+ACPI RSDT entry 0 at ffff80000ffe20b2 (FACP)
+ACPI RSDT entry 1 at ffff80000ffe21a6 (APIC)
+ACPI RSDT entry 2 at ffff80000ffe221e (HPET)
+ACPI RSDT entry 3 at ffff80000ffe2256 (MCFG)
+ACPI RSDT entry 4 at ffff80000ffe2292 (WAET)
+ACPI has 5 tables
+Initialised ACPI.
+00 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00000000 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=0ffa9610
+ESI=000e8d00 EDI=0ffbec71 EBP=00006c78 ESP=00006c78
+EIP=000f7d43 EFL=00000012 [----A--] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000010 CCD=00006c64 CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=0ffa9610
+ESI=000e8d00 EDI=0ffbec71 EBP=00006c78 ESP=00006c78
+EIP=00007d44 EFL=00000006 [-----P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 ffffffff 00809300
+CS =f000 000f0000 ffffffff 00809b00
+SS =0000 00000000 ffffffff 00809300
+DS =0000 00000000 ffffffff 00809300
+FS =0000 00000000 ffffffff 00809300
+GS =0000 00000000 ffffffff 00809300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000004 CCD=00000001 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=000f7d2a ECX=00001234 EDX=000069ff
+ESI=0000699e EDI=0ffbec71 EBP=0000695e ESP=0000695e
+EIP=00007d29 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 ffffffff 008f9300
+CS =f000 000f0000 ffffffff 008f9b00
+SS =0000 00000000 ffffffff 008f9300
+DS =0000 00000000 ffffffff 008f9300
+FS =0000 00000000 ffffffff 008f9300
+GS =ca00 000ca000 ffffffff 008f9300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=0000695e CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=000f7d2a ECX=00001234 EDX=000069ff
+ESI=0000699e EDI=0ffbec71 EBP=0000695e ESP=0000695e
+EIP=000f7d2a EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00000000 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=00000005
+ESI=00000000 EDI=0ffbec71 EBP=0000695e ESP=0000695e
+EIP=000f7d43 EFL=00000012 [----A--] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000010 CCD=0000694a CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=00000005
+ESI=00000000 EDI=0ffbec71 EBP=0000695e ESP=0000695e
+EIP=00007d44 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 ffffffff 00809300
+CS =f000 000f0000 ffffffff 00809b00
+SS =0000 00000000 ffffffff 00809300
+DS =0000 00000000 ffffffff 00809300
+FS =0000 00000000 ffffffff 00809300
+GS =ca00 000ca000 ffffffff 00809300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00000001 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=000f7d2a ECX=00001234 EDX=000069ff
+ESI=00006998 EDI=0ffbec71 EBP=00006958 ESP=00006958
+EIP=00007d29 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 ffffffff 00809300
+CS =f000 000f0000 ffffffff 00809b00
+SS =0000 00000000 ffffffff 00809300
+DS =0000 00000000 ffffffff 00809300
+FS =0000 00000000 ffffffff 00809300
+GS =ca00 000ca000 ffffffff 00809300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00006958 CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=000f7d2a ECX=00001234 EDX=000069ff
+ESI=00006998 EDI=0ffbec71 EBP=00006958 ESP=00006958
+EIP=000f7d2a EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00000000 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=00000003
+ESI=0ff8b320 EDI=0ffbec71 EBP=00006958 ESP=00006958
+EIP=000f7d43 EFL=00000016 [----AP-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000014 CCD=00006944 CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=00000003
+ESI=0ff8b320 EDI=0ffbec71 EBP=00006958 ESP=00006958
+EIP=00007d44 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 ffffffff 00809300
+CS =f000 000f0000 ffffffff 00809b00
+SS =0000 00000000 ffffffff 00809300
+DS =0000 00000000 ffffffff 00809300
+FS =0000 00000000 ffffffff 00809300
+GS =ca00 000ca000 ffffffff 00809300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00000001 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=000f7d2a ECX=00001234 EDX=000069ff
+ESI=0000699e EDI=0ffbec71 EBP=0000695e ESP=0000695e
+EIP=00007d29 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 ffffffff 00809300
+CS =f000 000f0000 ffffffff 00809b00
+SS =0000 00000000 ffffffff 00809300
+DS =0000 00000000 ffffffff 00809300
+FS =0000 00000000 ffffffff 00809300
+GS =ca00 000ca000 ffffffff 00809300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=0000695e CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=000f7d2a ECX=00001234 EDX=000069ff
+ESI=0000699e EDI=0ffbec71 EBP=0000695e ESP=0000695e
+EIP=000f7d2a EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00000000 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=00000005
+ESI=00000000 EDI=0ffbec71 EBP=0000695e ESP=0000695e
+EIP=000f7d43 EFL=00000012 [----A--] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000010 CCD=0000694a CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=00000005
+ESI=00000000 EDI=0ffbec71 EBP=0000695e ESP=0000695e
+EIP=00007d44 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 ffffffff 00809300
+CS =f000 000f0000 ffffffff 00809b00
+SS =0000 00000000 ffffffff 00809300
+DS =0000 00000000 ffffffff 00809300
+FS =0000 00000000 ffffffff 00809300
+GS =ca00 000ca000 ffffffff 00809300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00000001 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=000f7d2a ECX=00001234 EDX=000069ff
+ESI=00006998 EDI=0ffbec71 EBP=00006958 ESP=00006958
+EIP=00007d29 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 ffffffff 00809300
+CS =f000 000f0000 ffffffff 00809b00
+SS =0000 00000000 ffffffff 00809300
+DS =0000 00000000 ffffffff 00809300
+FS =0000 00000000 ffffffff 00809300
+GS =ca00 000ca000 ffffffff 00809300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00006958 CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=000f7d2a ECX=00001234 EDX=000069ff
+ESI=00006998 EDI=0ffbec71 EBP=00006958 ESP=00006958
+EIP=000f7d2a EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00000000 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=00000003
+ESI=0fecb320 EDI=0ffbec71 EBP=00006958 ESP=00006958
+EIP=000f7d43 EFL=00000016 [----AP-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000014 CCD=00006944 CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=00000003
+ESI=0fecb320 EDI=0ffbec71 EBP=00006958 ESP=00006958
+EIP=00007d44 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 ffffffff 00809300
+CS =f000 000f0000 ffffffff 00809b00
+SS =0000 00000000 ffffffff 00809300
+DS =0000 00000000 ffffffff 00809300
+FS =0000 00000000 ffffffff 00809300
+GS =ca00 000ca000 ffffffff 00809300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00000001 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=000f7d2a ECX=00001234 EDX=000e97ff
+ESI=000e9740 EDI=000ee6cd EBP=0000ff14 ESP=000e9714
+EIP=00007d29 EFL=00000006 [-----P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 0000ffff 00009300
+CS =f000 000f0000 0000ffff 00009b00
+SS =d980 000d9800 0000ffff 00009300
+DS =d980 000d9800 0000ffff 00009300
+FS =0000 00000000 0000ffff 00009300
+GS =0000 00000000 0000ffff 00009300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000004 CCD=000e9714 CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=000f7d2a ECX=00001234 EDX=000e97ff
+ESI=000e9740 EDI=000ee6cd EBP=0000ff14 ESP=000e9714
+EIP=000f7d2a EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00000000 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=000061d0 ECX=00005678 EDX=00000000
+ESI=00000000 EDI=000d9800 EBP=000088d8 ESP=0000fdec
+EIP=000ec128 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=0000fdec CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=000061d0 ECX=00005678 EDX=00000000
+ESI=00000000 EDI=000d9800 EBP=000088d8 ESP=0000fdec
+EIP=000061d0 EFL=00000006 [-----P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 0000ffff 00009300
+CS =f000 000f0000 0000ffff 00009b00
+SS =d980 000d9800 0000ffff 00009300
+DS =d980 000d9800 0000ffff 00009300
+FS =0000 00000000 0000ffff 00009300
+GS =0000 00000000 0000ffff 00009300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000004 CCD=00000001 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=000ec129 ECX=00001234 EDX=000000ff
+ESI=00000000 EDI=000d9800 EBP=000088d8 ESP=0000fdec
+EIP=000061f5 EFL=00000006 [-----P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 0000ffff 00009300
+CS =f000 000f0000 0000ffff 00009b00
+SS =d980 000d9800 0000ffff 00009300
+DS =d980 000d9800 0000ffff 00009300
+FS =0000 00000000 0000ffff 00009300
+GS =0000 00000000 0000ffff 00009300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000004 CCD=0000fdcc CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=000ec129 ECX=00001234 EDX=000000ff
+ESI=00000000 EDI=000d9800 EBP=000088d8 ESP=0000fdec
+EIP=000ec129 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00000000 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=00000002
+ESI=00000000 EDI=000ee6cd EBP=0000ff14 ESP=000e9714
+EIP=000f7d43 EFL=00000006 [-----P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000004 CCD=000e9700 CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=00000002
+ESI=00000000 EDI=000ee6cd EBP=0000ff14 ESP=000e9714
+EIP=00007d44 EFL=00000006 [-----P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 0000ffff 00009300
+CS =f000 000f0000 0000ffff 00009b00
+SS =d980 000d9800 0000ffff 00009300
+DS =d980 000d9800 0000ffff 00009300
+FS =0000 00000000 0000ffff 00009300
+GS =0000 00000000 0000ffff 00009300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00000000 00000000
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000004 CCD=00000001 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=000f7d2a ECX=00001234 EDX=000e97ff
+ESI=000e9740 EDI=000ee6cd EBP=0000ff14 ESP=000e9714
+EIP=00007d29 EFL=00000006 [-----P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 0000ffff 00009300
+CS =f000 000f0000 0000ffff 00009a00
+SS =d980 000d9800 0000ffff 00009300
+DS =d980 000d9800 0000ffff 00009300
+FS =0000 00000000 0000ffff 00009300
+GS =0000 00000000 0000ffff 00009300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00014c40 00000037
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000004 CCD=000e9714 CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=000f7d2a ECX=00001234 EDX=000e97ff
+ESI=000e9740 EDI=000ee6cd EBP=0000ff14 ESP=000e9714
+EIP=000f7d2a EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=00000000 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=000061d0 ECX=00005678 EDX=00000000
+ESI=00000000 EDI=000d9800 EBP=000088d8 ESP=0000fdec
+EIP=000ec128 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
+SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
+TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
+GDT=     000f6180 00000037
+IDT=     000f61be 00000000
+CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000000 CCD=0000fdec CCO=EFLAGS
+EFER=0000000000000000
+SMM: after RSM
+EAX=000000b5 EBX=000061d0 ECX=00005678 EDX=00000000
+ESI=00000000 EDI=000d9800 EBP=000088d8 ESP=0000fdec
+EIP=000061d0 EFL=00000006 [-----P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 0000ffff 00009300
+CS =f000 000f0000 0000ffff 00009a00
+SS =d980 000d9800 0000ffff 00009300
+DS =d980 000d9800 0000ffff 00009300
+FS =0000 00000000 0000ffff 00009300
+GS =0000 00000000 0000ffff 00009300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
+GDT=     00014c40 00000037
+IDT=     00000000 000003ff
+CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+CCS=00000004 CCD=00000001 CCO=EFLAGS
+EFER=0000000000000000
+SMM: enter
+EAX=000000b5 EBX=000ec129 ECX=00001234 EDX=000000ff
+ESI=00000000 EDI=000d9800 EBP=000088d8 ESP=0000fdec
+EIP=000061f5 EFL=00000006 [-----P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =d980 000d9800 0000ffff 00009300
+CS =f000 000f0000 0000ffff 00009a00
+SS =d980 000d9800 0000ffff 00009300
+DS =d980 000d9800 0000ffff 00009300
+FS =0000 00000000 0000ffff 00009300
+GS =0000 00000000 0000ffff 00009300
+LDT=0000 00000000 0000ffff 00008200
+TR =0000 00000000 0000ffff 00008b00
 GDT=     00014c40 00000037
 IDT=     00000000 000003ff
 CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
@@ -1419,82 +1452,6 @@ DR6=00000000ffff0ff0 DR7=0000000000000400
 CCS=00000000 CCD=00000000 CCO=EFLAGS
 EFER=0000000000000000
 SMM: enter
-EAX=000000b5 EBX=000061d0 ECX=00005678 EDX=00000000
-ESI=00000000 EDI=000d9800 EBP=000088d8 ESP=0000fdec
-EIP=000ec128 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
-ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
-CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
-SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
-DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
-FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
-GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
-LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
-TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
-GDT=     000f6180 00000037
-IDT=     000f61be 00000000
-CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
-DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
-DR6=00000000ffff0ff0 DR7=0000000000000400
-CCS=00000000 CCD=0000fdec CCO=EFLAGS
-EFER=0000000000000000
-SMM: after RSM
-EAX=000000b5 EBX=000061d0 ECX=00005678 EDX=00000000
-ESI=00000000 EDI=000d9800 EBP=000088d8 ESP=0000fdec
-EIP=000061d0 EFL=00000006 [-----P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
-ES =d980 000d9800 0000ffff 00009300
-CS =f000 000f0000 0000ffff 00009a00
-SS =d980 000d9800 0000ffff 00009300
-DS =d980 000d9800 0000ffff 00009300
-FS =0000 00000000 0000ffff 00009300
-GS =0000 00000000 0000ffff 00009300
-LDT=0000 00000000 0000ffff 00008200
-TR =0000 00000000 0000ffff 00008b00
-GDT=     00014c40 00000037
-IDT=     00000000 000003ff
-CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
-DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
-DR6=00000000ffff0ff0 DR7=0000000000000400
-CCS=00000004 CCD=00000001 CCO=EFLAGS
-EFER=0000000000000000
-SMM: enter
-EAX=000000b5 EBX=000ec129 ECX=00001234 EDX=000000ff
-ESI=00000000 EDI=000d9800 EBP=000088d8 ESP=0000fdec
-EIP=000061f5 EFL=00000006 [-----P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
-ES =d980 000d9800 0000ffff 00009300
-CS =f000 000f0000 0000ffff 00009a00
-SS =d980 000d9800 0000ffff 00009300
-DS =d980 000d9800 0000ffff 00009300
-FS =0000 00000000 0000ffff 00009300
-GS =0000 00000000 0000ffff 00009300
-LDT=0000 00000000 0000ffff 00008200
-TR =0000 00000000 0000ffff 00008b00
-GDT=     00014c40 00000037
-IDT=     00000000 000003ff
-CR0=00000010 CR2=00000000 CR3=00000000 CR4=00000000
-DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
-DR6=00000000ffff0ff0 DR7=0000000000000400
-CCS=00000004 CCD=0000fdcc CCO=EFLAGS
-EFER=0000000000000000
-SMM: after RSM
-EAX=000000b5 EBX=000ec129 ECX=00001234 EDX=000000ff
-ESI=00000000 EDI=000d9800 EBP=000088d8 ESP=0000fdec
-EIP=000ec129 EFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
-ES =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
-CS =0008 00000000 ffffffff 00c09b00 DPL=0 CS32 [-RA]
-SS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
-DS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
-FS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
-GS =0010 00000000 ffffffff 00c09300 DPL=0 DS   [-WA]
-LDT=0000 00000000 0000ffff 00008200 DPL=0 LDT
-TR =0000 00000000 0000ffff 00008b00 DPL=0 TSS32-busy
-GDT=     000f6180 00000037
-IDT=     000f61be 00000000
-CR0=00000011 CR2=00000000 CR3=00000000 CR4=00000000
-DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
-DR6=00000000ffff0ff0 DR7=0000000000000400
-CCS=00000000 CCD=00000000 CCO=EFLAGS
-EFER=0000000000000000
-SMM: enter
 EAX=000000b5 EBX=00007d44 ECX=00005678 EDX=00000002
 ESI=00000000 EDI=000ee6cd EBP=0000ff14 ESP=000e9714
 EIP=000f7d43 EFL=00000006 [-----P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
@@ -23268,12 +23225,12 @@ DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000
 DR6=00000000ffff0ff0 DR7=0000000000000400
 CCS=00000004 CCD=00000001 CCO=EFLAGS
 EFER=0000000000000000
-     0: v=40 e=0000 i=1 cpl=0 IP=0008:ffffffff80002821 pc=ffffffff80002821 SP=0010:ffff80000ff6dfc0 env->regs[R_EAX]=ffffffff8000db00
-RAX=ffffffff8000db00 RBX=ffff80000ff72000 RCX=ffff80000ff6df67 RDX=00000000000000e9
-RSI=000000000000000a RDI=00000000000000e9 RBP=ffff80000ff6dff0 RSP=ffff80000ff6dfc0
-R8 =0000000000000010 R9 =ffff80000ff6df70 R10=000000000000000f R11=000000000000003f
-R12=ffffffff800086a5 R13=ffffffff8000dae0 R14=ffff80000ff49000 R15=000000000000000f
-RIP=ffffffff80002821 RFL=00000046 [---Z-P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+     0: v=40 e=0000 i=1 cpl=0 IP=0008:ffffffff8000282d pc=ffffffff8000282d SP=0010:ffff80000ff6dfd0 env->regs[R_EAX]=ffffffff8000dc00
+RAX=ffffffff8000dc00 RBX=ffff80000ff72000 RCX=ffff80000ff6df77 RDX=00000000000000e9
+RSI=000000000000000a RDI=00000000000000e9 RBP=ffff80000ff6dff0 RSP=ffff80000ff6dfd0
+R8 =0000000000000010 R9 =ffff80000ff6df80 R10=000000000000000f R11=000000000000003f
+R12=ffffffff8000dbf8 R13=ffff80000ff49000 R14=000000000000000f R15=0000000000000000
+RIP=ffffffff8000282d RFL=00000046 [---Z-P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
 ES =0010 0000000000000000 ffffffff 00af9300 DPL=0 DS   [-WA]
 CS =0008 0000000000000000 ffffffff 00af9a00 DPL=0 CS64 [-R-]
 SS =0010 0000000000000000 ffffffff 00af9300 DPL=0 DS   [-WA]
@@ -23282,8 +23239,8 @@ FS =0010 0000000000000000 ffffffff 00af9300 DPL=0 DS   [-WA]
 GS =0010 0000000000000000 ffffffff 00af9300 DPL=0 DS   [-WA]
 LDT=0000 0000000000000000 00000000 00008200 DPL=0 LDT
 TR =0000 0000000000000000 0000ffff 00008b00 DPL=0 TSS64-busy
-GDT=     ffffffff8000bc60 00000027
-IDT=     ffffffff8000e320 00000fff
+GDT=     ffffffff8000bd40 00000027
+IDT=     ffffffff8000e420 00000fff
 CR0=80010011 CR2=0000000000000000 CR3=000000000ff5d000 CR4=00000020
 DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
 DR6=00000000ffff0ff0 DR7=0000000000000400

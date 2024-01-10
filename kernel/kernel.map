@@ -1,17 +1,18 @@
 
 Discarded input sections
 
- .eh_frame      0x0000000000000000       0xf8 ./memory/pmm.c.o
+ .eh_frame      0x0000000000000000       0xe8 ./memory/pmm.c.o
  .eh_frame      0x0000000000000000       0xf0 ./memory/paging.c.o
- .eh_frame      0x0000000000000000       0xa8 ./term/term.c.o
+ .eh_frame      0x0000000000000000       0x90 ./acpi/acpi.c.o
+ .eh_frame      0x0000000000000000       0xc0 ./term/term.c.o
  .eh_frame      0x0000000000000000      0x1c8 ./term/kprintf.c.o
  .eh_frame      0x0000000000000000       0x90 ./utils/mem.c.o
  .eh_frame      0x0000000000000000       0xe0 ./utils/num.c.o
- .eh_frame      0x0000000000000000       0x58 ./kernel.c.o
+ .eh_frame      0x0000000000000000       0x50 ./kernel.c.o
  .eh_frame      0x0000000000000000       0x98 ./core/idt.c.o
  .eh_frame      0x0000000000000000       0x30 ./core/gdt.c.o
  .eh_frame      0x0000000000000000       0x38 ./core/panic.c.o
- .eh_frame      0x0000000000000000       0x40 ./io/io.c.o
+ .eh_frame      0x0000000000000000       0x90 ./io/io.c.o
  .eh_frame      0x0000000000000000      0x140 ./io/serial.c.o
 
 Memory Configuration
@@ -23,6 +24,7 @@ Linker script and memory map
 
 LOAD ./memory/pmm.c.o
 LOAD ./memory/paging.c.o
+LOAD ./acpi/acpi.c.o
 LOAD ./term/term.c.o
 LOAD ./term/kprintf.c.o
 LOAD ./utils/mem.c.o
@@ -38,435 +40,472 @@ LOAD ./core/idtasm.asm.o
 LOAD zap-light16.o
                 0xffffffff80000000                . = 0xffffffff80000000
 
-.text           0xffffffff80000000     0x7582
+.text           0xffffffff80000000     0x76f2
  *(.text .text.*)
- .text          0xffffffff80000000      0x7c2 ./memory/pmm.c.o
+ .text          0xffffffff80000000      0x702 ./memory/pmm.c.o
                 0xffffffff80000000                pmm_set_bitmap
                 0xffffffff80000030                pmm_get_bitmap
                 0xffffffff80000050                init_pmm
                 0xffffffff800004c0                pmm_alloc_purpose
-                0xffffffff80000760                pmm_alloc
-                0xffffffff80000770                pmm_free
- *fill*         0xffffffff800007c2        0xe 
- .text          0xffffffff800007d0      0x673 ./memory/paging.c.o
-                0xffffffff80000a70                ensure_canonical_address
-                0xffffffff80000aa0                init_paging
-                0xffffffff80000db0                create_pml4
-                0xffffffff80000df0                map_page
-                0xffffffff80000e30                switch_pml4
- *fill*         0xffffffff80000e43        0xd 
- .text          0xffffffff80000e50      0x299 ./term/term.c.o
-                0xffffffff80000e50                load_psf
-                0xffffffff80000e60                term_init
-                0xffffffff80000f30                term_write
-                0xffffffff800010b0                term_writeline
- *fill*         0xffffffff800010e9        0x7 
- .text          0xffffffff800010f0     0x1260 ./term/kprintf.c.o
-                0xffffffff80002180                kprintf_
-                0xffffffff800021e0                ksprintf_
-                0xffffffff80002230                ksnprintf_
-                0xffffffff80002280                kvprintf_
-                0xffffffff800022b0                kvsnprintf_
-                0xffffffff800022d0                fctprintf
-                0xffffffff80002330                _putchar
- .text          0xffffffff80002350      0x15b ./utils/mem.c.o
-                0xffffffff80002350                memcpy
-                0xffffffff80002380                memset
-                0xffffffff800023a0                memmove
-                0xffffffff800023f0                memcmp
-                0xffffffff80002430                strcmp
-                0xffffffff80002480                strlen
- *fill*         0xffffffff800024ab        0x5 
- .text          0xffffffff800024b0      0x1cc ./utils/num.c.o
-                0xffffffff80002580                itoa_i64
-                0xffffffff800025a0                itoa_i32
-                0xffffffff800025c0                itoa_i16
-                0xffffffff800025e0                itoa_i8
-                0xffffffff80002600                itoa_u64
-                0xffffffff80002620                itoa_u32
-                0xffffffff80002640                itoa_u16
-                0xffffffff80002660                itoa_u8
- *fill*         0xffffffff8000267c        0x4 
- .text          0xffffffff80002680      0x293 ./kernel.c.o
-                0xffffffff80002680                irqTest
-                0xffffffff80002690                _start
- *fill*         0xffffffff80002913        0xd 
- .text          0xffffffff80002920      0x17c ./core/idt.c.o
-                0xffffffff80002920                idt_set_entry
-                0xffffffff80002970                init_idt
-                0xffffffff800029e0                handle_isr
-                0xffffffff80002a10                set_handler
-                0xffffffff80002a70                handle_irq
- *fill*         0xffffffff80002a9c        0x4 
- .text          0xffffffff80002aa0        0xe ./core/gdt.c.o
-                0xffffffff80002aa0                init_gdt
- *fill*         0xffffffff80002aae        0x2 
- .text          0xffffffff80002ab0       0x33 ./core/panic.c.o
-                0xffffffff80002ab0                panic
- *fill*         0xffffffff80002ae3        0xd 
- .text          0xffffffff80002af0       0x16 ./io/io.c.o
-                0xffffffff80002af0                inb
-                0xffffffff80002b00                outb
- *fill*         0xffffffff80002b06        0xa 
- .text          0xffffffff80002b10      0x294 ./io/serial.c.o
-                0xffffffff80002b10                init_serial
-                0xffffffff80002bd0                serial_received
-                0xffffffff80002bf0                read_serial
-                0xffffffff80002c20                is_transmit_empty
-                0xffffffff80002c40                write_serial
-                0xffffffff80002c80                write_serial_string
-                0xffffffff80002cd0                write_serial_u64
-                0xffffffff80002d40                write_serial_i64
- *fill*         0xffffffff80002da4        0xc 
- .text          0xffffffff80002db0       0x1b ./core/gdtasm.asm.o
-                0xffffffff80002db0                reload_segments
- *fill*         0xffffffff80002dcb        0x5 
- .text          0xffffffff80002dd0     0x47b2 ./core/idtasm.asm.o
+                0xffffffff800006a0                pmm_alloc
+                0xffffffff800006b0                pmm_free
+ *fill*         0xffffffff80000702        0xe 
+ .text          0xffffffff80000710      0x4e3 ./memory/paging.c.o
+                0xffffffff80000910                ensure_canonical_address
+                0xffffffff80000940                init_paging
+                0xffffffff80000b60                create_pml4
+                0xffffffff80000ba0                map_page
+                0xffffffff80000be0                switch_pml4
+ *fill*         0xffffffff80000bf3        0xd 
+ .text          0xffffffff80000c00      0x354 ./acpi/acpi.c.o
+                0xffffffff80000c00                acpi_get_table
+                0xffffffff80000ca0                init_acpi
+ *fill*         0xffffffff80000f54        0xc 
+ .text          0xffffffff80000f60      0x2d6 ./term/term.c.o
+                0xffffffff800010e0                load_psf
+                0xffffffff800010f0                term_init
+                0xffffffff800011c0                term_write
+                0xffffffff800011e0                term_writeline
+ *fill*         0xffffffff80001236        0xa 
+ .text          0xffffffff80001240     0x1260 ./term/kprintf.c.o
+                0xffffffff800022d0                kprintf_
+                0xffffffff80002330                ksprintf_
+                0xffffffff80002380                ksnprintf_
+                0xffffffff800023d0                kvprintf_
+                0xffffffff80002400                kvsnprintf_
+                0xffffffff80002420                fctprintf
+                0xffffffff80002480                _putchar
+ .text          0xffffffff800024a0      0x15b ./utils/mem.c.o
+                0xffffffff800024a0                memcpy
+                0xffffffff800024d0                memset
+                0xffffffff800024f0                memmove
+                0xffffffff80002540                memcmp
+                0xffffffff80002580                strcmp
+                0xffffffff800025d0                strlen
+ *fill*         0xffffffff800025fb        0x5 
+ .text          0xffffffff80002600      0x1cc ./utils/num.c.o
+                0xffffffff800026d0                itoa_i64
+                0xffffffff800026f0                itoa_i32
+                0xffffffff80002710                itoa_i16
+                0xffffffff80002730                itoa_i8
+                0xffffffff80002750                itoa_u64
+                0xffffffff80002770                itoa_u32
+                0xffffffff80002790                itoa_u16
+                0xffffffff800027b0                itoa_u8
+ *fill*         0xffffffff800027cc        0x4 
+ .text          0xffffffff800027d0      0x263 ./kernel.c.o
+                0xffffffff800027d0                irqTest
+                0xffffffff800027e0                _start
+ *fill*         0xffffffff80002a33        0xd 
+ .text          0xffffffff80002a40      0x17c ./core/idt.c.o
+                0xffffffff80002a40                idt_set_entry
+                0xffffffff80002a90                init_idt
+                0xffffffff80002b00                handle_isr
+                0xffffffff80002b30                set_handler
+                0xffffffff80002b90                handle_irq
+ *fill*         0xffffffff80002bbc        0x4 
+ .text          0xffffffff80002bc0        0xe ./core/gdt.c.o
+                0xffffffff80002bc0                init_gdt
+ *fill*         0xffffffff80002bce        0x2 
+ .text          0xffffffff80002bd0       0x43 ./core/panic.c.o
+                0xffffffff80002bd0                panic
+ *fill*         0xffffffff80002c13        0xd 
+ .text          0xffffffff80002c20       0x56 ./io/io.c.o
+                0xffffffff80002c20                inb
+                0xffffffff80002c30                outb
+                0xffffffff80002c40                inw
+                0xffffffff80002c50                outw
+                0xffffffff80002c60                inl
+                0xffffffff80002c70                outl
+ *fill*         0xffffffff80002c76        0xa 
+ .text          0xffffffff80002c80      0x294 ./io/serial.c.o
+                0xffffffff80002c80                init_serial
+                0xffffffff80002d40                serial_received
+                0xffffffff80002d60                read_serial
+                0xffffffff80002d90                is_transmit_empty
+                0xffffffff80002db0                write_serial
+                0xffffffff80002df0                write_serial_string
+                0xffffffff80002e40                write_serial_u64
+                0xffffffff80002eb0                write_serial_i64
+ *fill*         0xffffffff80002f14        0xc 
+ .text          0xffffffff80002f20       0x1b ./core/gdtasm.asm.o
+                0xffffffff80002f20                reload_segments
+ *fill*         0xffffffff80002f3b        0x5 
+ .text          0xffffffff80002f40     0x47b2 ./core/idtasm.asm.o
 
-.plt            0xffffffff80007590        0x0
- .plt           0xffffffff80007590        0x0 ./memory/pmm.c.o
+.plt            0xffffffff80007700        0x0
+ .plt           0xffffffff80007700        0x0 ./memory/pmm.c.o
 
-.plt.got        0xffffffff80007588        0x0
- .plt.got       0xffffffff80007588        0x0 ./memory/pmm.c.o
-                0xffffffff80008588                . = (. + CONSTANT (MAXPAGESIZE))
+.plt.got        0xffffffff800076f8        0x0
+ .plt.got       0xffffffff800076f8        0x0 ./memory/pmm.c.o
+                0xffffffff800086f8                . = (. + CONSTANT (MAXPAGESIZE))
 
-.rodata         0xffffffff80008588      0xae2
+.rodata         0xffffffff800086f8      0xb57
  *(.rodata .rodata.*)
  .rodata.str1.1
-                0xffffffff80008588      0x124 ./memory/pmm.c.o
-                                        0x129 (size before relaxing)
- *fill*         0xffffffff800086ac        0x4 
+                0xffffffff800086f8       0xd6 ./memory/pmm.c.o
+                                         0xd8 (size before relaxing)
+ *fill*         0xffffffff800087ce        0x2 
  .rodata.str1.8
-                0xffffffff800086b0       0xd5 ./memory/pmm.c.o
+                0xffffffff800087d0       0xd4 ./memory/pmm.c.o
  .rodata.str1.1
-                0xffffffff80008785      0x101 ./memory/paging.c.o
- *fill*         0xffffffff80008886        0x2 
+                0xffffffff800088a4       0x7c ./memory/paging.c.o
  .rodata.str1.8
-                0xffffffff80008888      0x207 ./memory/paging.c.o
- *fill*         0xffffffff80008a8f        0x1 
- .rodata.str1.8
-                0xffffffff80008a90       0x51 ./term/term.c.o
+                0xffffffff80008920      0x18f ./memory/paging.c.o
  .rodata.str1.1
-                0xffffffff80008ae1       0x32 ./term/term.c.o
+                0xffffffff80008aaf       0xd8 ./acpi/acpi.c.o
+ *fill*         0xffffffff80008b87        0x1 
+ .rodata.str1.8
+                0xffffffff80008b88       0x73 ./acpi/acpi.c.o
+ *fill*         0xffffffff80008bfb        0x5 
+ .rodata.str1.8
+                0xffffffff80008c00       0x51 ./term/term.c.o
+ .rodata.str1.1
+                0xffffffff80008c51       0x32 ./term/term.c.o
                                          0x34 (size before relaxing)
- *fill*         0xffffffff80008b13        0x1 
- .rodata        0xffffffff80008b14       0x44 ./term/kprintf.c.o
+ *fill*         0xffffffff80008c83        0x1 
+ .rodata        0xffffffff80008c84       0x44 ./term/kprintf.c.o
  .rodata.str1.8
-                0xffffffff80008b58       0x48 ./utils/num.c.o
+                0xffffffff80008cc8       0x48 ./utils/num.c.o
  .rodata.str1.1
-                0xffffffff80008ba0      0x109 ./kernel.c.o
-                                        0x10b (size before relaxing)
- *fill*         0xffffffff80008ca9        0x7 
+                0xffffffff80008d10      0x123 ./kernel.c.o
+ *fill*         0xffffffff80008e33        0x5 
  .rodata.str1.8
-                0xffffffff80008cb0       0xd5 ./kernel.c.o
+                0xffffffff80008e38      0x105 ./kernel.c.o
  .rodata.str1.1
-                0xffffffff80008d85      0x15b ./core/idt.c.o
+                0xffffffff80008f3d      0x15b ./core/idt.c.o
                                         0x162 (size before relaxing)
  .rodata.str1.8
-                0xffffffff80008ee0      0x162 ./core/idt.c.o
- .rodata.cst2   0xffffffff80009042        0x2 ./core/idt.c.o
+                0xffffffff80009098      0x162 ./core/idt.c.o
+ .rodata.cst2   0xffffffff800091fa        0x2 ./core/idt.c.o
  .rodata.str1.1
-                0xffffffff80009044       0x26 ./core/panic.c.o
+                0xffffffff800091fc       0x26 ./core/panic.c.o
+ *fill*         0xffffffff80009222        0x6 
+ .rodata.str1.8
+                0xffffffff80009228       0x27 ./core/panic.c.o
 
-.gnu.version_d  0xffffffff80009070        0x0
+.gnu.version_d  0xffffffff80009250        0x0
  .gnu.version_d
-                0xffffffff80009070        0x0 ./memory/pmm.c.o
+                0xffffffff80009250        0x0 ./memory/pmm.c.o
 
-.gnu.version    0xffffffff8000906a        0x0
- .gnu.version   0xffffffff8000906a        0x0 ./memory/pmm.c.o
+.gnu.version    0xffffffff80009250        0x0
+ .gnu.version   0xffffffff80009250        0x0 ./memory/pmm.c.o
 
-.gnu.version_r  0xffffffff80009070        0x0
+.gnu.version_r  0xffffffff80009250        0x0
  .gnu.version_r
-                0xffffffff80009070        0x0 ./memory/pmm.c.o
+                0xffffffff80009250        0x0 ./memory/pmm.c.o
 
-.dynsym         0xffffffff80009070       0x18
- .dynsym        0xffffffff80009070       0x18 ./memory/pmm.c.o
+.dynsym         0xffffffff80009250       0x18
+ .dynsym        0xffffffff80009250       0x18 ./memory/pmm.c.o
 
-.dynstr         0xffffffff80009088        0x1
- .dynstr        0xffffffff80009088        0x1 ./memory/pmm.c.o
+.dynstr         0xffffffff80009268        0x1
+ .dynstr        0xffffffff80009268        0x1 ./memory/pmm.c.o
 
-.hash           0xffffffff80009090       0x10
- .hash          0xffffffff80009090       0x10 ./memory/pmm.c.o
+.hash           0xffffffff80009270       0x10
+ .hash          0xffffffff80009270       0x10 ./memory/pmm.c.o
 
-.gnu.hash       0xffffffff800090a0       0x1c
- .gnu.hash      0xffffffff800090a0       0x1c ./memory/pmm.c.o
+.gnu.hash       0xffffffff80009280       0x1c
+ .gnu.hash      0xffffffff80009280       0x1c ./memory/pmm.c.o
 
-.rela.dyn       0xffffffff800090c0     0x19f8
- .rela.plt      0xffffffff800090c0        0x0 ./memory/pmm.c.o
- .rela.got      0xffffffff800090c0        0x0 ./memory/pmm.c.o
- .rela.bss      0xffffffff800090c0        0x0 ./memory/pmm.c.o
+.rela.dyn       0xffffffff800092a0     0x19f8
+ .rela.plt      0xffffffff800092a0        0x0 ./memory/pmm.c.o
+ .rela.got      0xffffffff800092a0        0x0 ./memory/pmm.c.o
+ .rela.bss      0xffffffff800092a0        0x0 ./memory/pmm.c.o
  .rela.data.rel.ro
-                0xffffffff800090c0        0x0 ./memory/pmm.c.o
- .rela.ifunc    0xffffffff800090c0        0x0 ./memory/pmm.c.o
+                0xffffffff800092a0        0x0 ./memory/pmm.c.o
+ .rela.ifunc    0xffffffff800092a0        0x0 ./memory/pmm.c.o
  .rela.data.rel.ro.local
-                0xffffffff800090c0      0x1e0 ./memory/pmm.c.o
+                0xffffffff800092a0      0x1e0 ./memory/pmm.c.o
  .rela.data.rel.local
-                0xffffffff800092a0       0x18 ./memory/pmm.c.o
- .rela.data     0xffffffff800092b8     0x1800 ./memory/pmm.c.o
-                0xffffffff8000bab8                . = (. + CONSTANT (MAXPAGESIZE))
+                0xffffffff80009480       0x18 ./memory/pmm.c.o
+ .rela.data     0xffffffff80009498     0x1800 ./memory/pmm.c.o
+                0xffffffff8000bc98                . = (. + CONSTANT (MAXPAGESIZE))
 
-.data           0xffffffff8000bac0     0x1e94
+.data           0xffffffff8000bca0     0x1ed4
  *(.data .data.*)
- .data          0xffffffff8000bac0        0x0 ./memory/pmm.c.o
- .data.rel.ro   0xffffffff8000bac0        0x0 ./memory/pmm.c.o
- .data          0xffffffff8000bac0        0x0 ./memory/paging.c.o
- .data          0xffffffff8000bac0        0x0 ./term/term.c.o
- .data          0xffffffff8000bac0        0x0 ./term/kprintf.c.o
- .data          0xffffffff8000bac0        0x0 ./utils/mem.c.o
- .data          0xffffffff8000bac0        0x0 ./utils/num.c.o
- .data          0xffffffff8000bac0       0xf0 ./kernel.c.o
-                0xffffffff8000bb40                kernel_request
-                0xffffffff8000bb80                hhdm_request
- .data          0xffffffff8000bbb0        0x0 ./core/idt.c.o
- *fill*         0xffffffff8000bbb0       0x10 
+ .data          0xffffffff8000bca0        0x0 ./memory/pmm.c.o
+ .data.rel.ro   0xffffffff8000bca0        0x0 ./memory/pmm.c.o
+ .data          0xffffffff8000bca0        0x0 ./memory/paging.c.o
+ .data          0xffffffff8000bca0        0x0 ./acpi/acpi.c.o
+ .data          0xffffffff8000bca0        0x0 ./term/term.c.o
+ .data          0xffffffff8000bca0        0x0 ./term/kprintf.c.o
+ .data          0xffffffff8000bca0        0x0 ./utils/mem.c.o
+ .data          0xffffffff8000bca0        0x0 ./utils/num.c.o
+ .data          0xffffffff8000bca0      0x130 ./kernel.c.o
+                0xffffffff8000bd60                kernel_request
+                0xffffffff8000bda0                hhdm_request
+ .data          0xffffffff8000bdd0        0x0 ./core/idt.c.o
+ *fill*         0xffffffff8000bdd0       0x10 
  .data.rel.ro.local
-                0xffffffff8000bbc0       0xa0 ./core/idt.c.o
- .data          0xffffffff8000bc60       0x28 ./core/gdt.c.o
-                0xffffffff8000bc60                gdt
+                0xffffffff8000bde0       0xa0 ./core/idt.c.o
+ .data          0xffffffff8000be80       0x28 ./core/gdt.c.o
+                0xffffffff8000be80                gdt
  .data.rel.local
-                0xffffffff8000bc88        0xa ./core/gdt.c.o
-                0xffffffff8000bc88                gdtr
- .data          0xffffffff8000bc92        0x0 ./core/panic.c.o
- .data          0xffffffff8000bc92        0x0 ./io/io.c.o
- .data          0xffffffff8000bc92        0x0 ./io/serial.c.o
- *fill*         0xffffffff8000bc92        0x2 
- .data          0xffffffff8000bc94      0x800 ./core/idtasm.asm.o
-                0xffffffff8000bc94                idt_stub_table
- .data          0xffffffff8000c494     0x14c0 zap-light16.o
-                0xffffffff8000c494                _binary_zap_light16_psf_start
-                0xffffffff8000d954                _binary_zap_light16_psf_end
+                0xffffffff8000bea8        0xa ./core/gdt.c.o
+                0xffffffff8000bea8                gdtr
+ .data          0xffffffff8000beb2        0x0 ./core/panic.c.o
+ .data          0xffffffff8000beb2        0x0 ./io/io.c.o
+ .data          0xffffffff8000beb2        0x0 ./io/serial.c.o
+ *fill*         0xffffffff8000beb2        0x2 
+ .data          0xffffffff8000beb4      0x800 ./core/idtasm.asm.o
+                0xffffffff8000beb4                idt_stub_table
+ .data          0xffffffff8000c6b4     0x14c0 zap-light16.o
+                0xffffffff8000c6b4                _binary_zap_light16_psf_start
+                0xffffffff8000db74                _binary_zap_light16_psf_end
 
-.got            0xffffffff8000d958        0x0
- .got           0xffffffff8000d958        0x0 ./memory/pmm.c.o
+.got            0xffffffff8000db78        0x0
+ .got           0xffffffff8000db78        0x0 ./memory/pmm.c.o
 
-.got.plt        0xffffffff8000d958        0x0
- .got.plt       0xffffffff8000d958        0x0 ./memory/pmm.c.o
+.got.plt        0xffffffff8000db78        0x0
+ .got.plt       0xffffffff8000db78        0x0 ./memory/pmm.c.o
 
-.dynamic        0xffffffff8000d958      0x110
+.dynamic        0xffffffff8000db78      0x110
  *(.dynamic)
- .dynamic       0xffffffff8000d958      0x110 ./memory/pmm.c.o
-                0xffffffff8000d958                _DYNAMIC
+ .dynamic       0xffffffff8000db78      0x110 ./memory/pmm.c.o
+                0xffffffff8000db78                _DYNAMIC
 
-.bss            0xffffffff8000da80     0x18a0
+.bss            0xffffffff8000dca0     0x18c0
  *(.bss .bss.*)
- .bss           0xffffffff8000da80       0x20 ./memory/pmm.c.o
-                0xffffffff8000da80                bitmap_index
-                0xffffffff8000da88                bitmap_pages
-                0xffffffff8000da90                bitmap_size
-                0xffffffff8000da98                bitmap
- .bss           0xffffffff8000daa0       0x20 ./memory/paging.c.o
- .bss           0xffffffff8000dac0       0x20 ./term/term.c.o
- .bss           0xffffffff8000dae0        0x0 ./term/kprintf.c.o
- .bss           0xffffffff8000dae0        0x8 ./utils/mem.c.o
-                0xffffffff8000dae0                hhdm
- .bss           0xffffffff8000dae8        0x0 ./utils/num.c.o
- .bss           0xffffffff8000dae8        0x0 ./kernel.c.o
- *fill*         0xffffffff8000dae8       0x18 
- .bss           0xffffffff8000db00     0x1820 ./core/idt.c.o
- .bss           0xffffffff8000f320        0x0 ./core/gdt.c.o
- .bss           0xffffffff8000f320        0x0 ./core/panic.c.o
- .bss           0xffffffff8000f320        0x0 ./io/io.c.o
- .bss           0xffffffff8000f320        0x0 ./io/serial.c.o
+ .bss           0xffffffff8000dca0       0x20 ./memory/pmm.c.o
+                0xffffffff8000dca0                bitmap_index
+                0xffffffff8000dca8                bitmap_pages
+                0xffffffff8000dcb0                bitmap_size
+                0xffffffff8000dcb8                bitmap
+ .bss           0xffffffff8000dcc0       0x18 ./memory/paging.c.o
+ .bss           0xffffffff8000dcd8       0x38 ./acpi/acpi.c.o
+                0xffffffff8000dcd8                acpi_fadt
+                0xffffffff8000dce0                acpi_table_count
+                0xffffffff8000dce8                acpi_tables
+                0xffffffff8000dcf0                acpi_xsdt
+                0xffffffff8000dcf8                acpi_rsdt
+                0xffffffff8000dd00                acpi_revision
+                0xffffffff8000dd08                acpi_xsdp
+ .bss           0xffffffff8000dd10       0x28 ./term/term.c.o
+ .bss           0xffffffff8000dd38        0x0 ./term/kprintf.c.o
+ .bss           0xffffffff8000dd38        0x8 ./utils/mem.c.o
+                0xffffffff8000dd38                hhdm
+ .bss           0xffffffff8000dd40        0x0 ./utils/num.c.o
+ .bss           0xffffffff8000dd40        0x0 ./kernel.c.o
+ .bss           0xffffffff8000dd40     0x1820 ./core/idt.c.o
+ .bss           0xffffffff8000f560        0x0 ./core/gdt.c.o
+ .bss           0xffffffff8000f560        0x0 ./core/panic.c.o
+ .bss           0xffffffff8000f560        0x0 ./io/io.c.o
+ .bss           0xffffffff8000f560        0x0 ./io/serial.c.o
  *(COMMON)
 
-.dynbss         0xffffffff8000f320        0x0
- .dynbss        0xffffffff8000f320        0x0 ./memory/pmm.c.o
+.dynbss         0xffffffff8000f560        0x0
+ .dynbss        0xffffffff8000f560        0x0 ./memory/pmm.c.o
 
 /DISCARD/
  *(.eh_frame)
  *(.note .note.*)
 OUTPUT(kernel.elf elf64-x86-64)
 
-.debug_info     0x0000000000000000     0x5eed
- .debug_info    0x0000000000000000      0xea2 ./memory/pmm.c.o
- .debug_info    0x0000000000000ea2      0xe41 ./memory/paging.c.o
- .debug_info    0x0000000000001ce3      0x5fb ./term/term.c.o
- .debug_info    0x00000000000022de     0x12fc ./term/kprintf.c.o
- .debug_info    0x00000000000035da      0x3e5 ./utils/mem.c.o
- .debug_info    0x00000000000039bf      0x851 ./utils/num.c.o
- .debug_info    0x0000000000004210      0xc85 ./kernel.c.o
- .debug_info    0x0000000000004e95      0x58f ./core/idt.c.o
- .debug_info    0x0000000000005424      0x11d ./core/gdt.c.o
- .debug_info    0x0000000000005541      0x115 ./core/panic.c.o
- .debug_info    0x0000000000005656       0xee ./io/io.c.o
- .debug_info    0x0000000000005744      0x707 ./io/serial.c.o
- .debug_info    0x0000000000005e4b       0x51 ./core/gdtasm.asm.o
- .debug_info    0x0000000000005e9c       0x51 ./core/idtasm.asm.o
+.debug_info     0x0000000000000000     0x69a3
+ .debug_info    0x0000000000000000      0xcf1 ./memory/pmm.c.o
+ .debug_info    0x0000000000000cf1      0xc57 ./memory/paging.c.o
+ .debug_info    0x0000000000001948      0xc4b ./acpi/acpi.c.o
+ .debug_info    0x0000000000002593      0x701 ./term/term.c.o
+ .debug_info    0x0000000000002c94     0x12fc ./term/kprintf.c.o
+ .debug_info    0x0000000000003f90      0x3e5 ./utils/mem.c.o
+ .debug_info    0x0000000000004375      0x851 ./utils/num.c.o
+ .debug_info    0x0000000000004bc6      0xc51 ./kernel.c.o
+ .debug_info    0x0000000000005817      0x58f ./core/idt.c.o
+ .debug_info    0x0000000000005da6      0x11d ./core/gdt.c.o
+ .debug_info    0x0000000000005ec3      0x15a ./core/panic.c.o
+ .debug_info    0x000000000000601d      0x1dd ./io/io.c.o
+ .debug_info    0x00000000000061fa      0x707 ./io/serial.c.o
+ .debug_info    0x0000000000006901       0x51 ./core/gdtasm.asm.o
+ .debug_info    0x0000000000006952       0x51 ./core/idtasm.asm.o
 
-.debug_abbrev   0x0000000000000000     0x164b
- .debug_abbrev  0x0000000000000000      0x2c4 ./memory/pmm.c.o
- .debug_abbrev  0x00000000000002c4      0x313 ./memory/paging.c.o
- .debug_abbrev  0x00000000000005d7      0x1de ./term/term.c.o
- .debug_abbrev  0x00000000000007b5      0x3c1 ./term/kprintf.c.o
- .debug_abbrev  0x0000000000000b76      0x154 ./utils/mem.c.o
- .debug_abbrev  0x0000000000000cca      0x162 ./utils/num.c.o
- .debug_abbrev  0x0000000000000e2c      0x226 ./kernel.c.o
- .debug_abbrev  0x0000000000001052      0x213 ./core/idt.c.o
- .debug_abbrev  0x0000000000001265       0xce ./core/gdt.c.o
- .debug_abbrev  0x0000000000001333       0x99 ./core/panic.c.o
- .debug_abbrev  0x00000000000013cc       0x86 ./io/io.c.o
- .debug_abbrev  0x0000000000001452      0x1c3 ./io/serial.c.o
- .debug_abbrev  0x0000000000001615       0x1b ./core/gdtasm.asm.o
- .debug_abbrev  0x0000000000001630       0x1b ./core/idtasm.asm.o
+.debug_abbrev   0x0000000000000000     0x1912
+ .debug_abbrev  0x0000000000000000      0x2be ./memory/pmm.c.o
+ .debug_abbrev  0x00000000000002be      0x301 ./memory/paging.c.o
+ .debug_abbrev  0x00000000000005bf      0x1fa ./acpi/acpi.c.o
+ .debug_abbrev  0x00000000000007b9      0x27e ./term/term.c.o
+ .debug_abbrev  0x0000000000000a37      0x3c1 ./term/kprintf.c.o
+ .debug_abbrev  0x0000000000000df8      0x154 ./utils/mem.c.o
+ .debug_abbrev  0x0000000000000f4c      0x162 ./utils/num.c.o
+ .debug_abbrev  0x00000000000010ae      0x226 ./kernel.c.o
+ .debug_abbrev  0x00000000000012d4      0x213 ./core/idt.c.o
+ .debug_abbrev  0x00000000000014e7       0xce ./core/gdt.c.o
+ .debug_abbrev  0x00000000000015b5       0xbd ./core/panic.c.o
+ .debug_abbrev  0x0000000000001672       0xa7 ./io/io.c.o
+ .debug_abbrev  0x0000000000001719      0x1c3 ./io/serial.c.o
+ .debug_abbrev  0x00000000000018dc       0x1b ./core/gdtasm.asm.o
+ .debug_abbrev  0x00000000000018f7       0x1b ./core/idtasm.asm.o
 
 .debug_loclists
-                0x0000000000000000     0x2c81
+                0x0000000000000000     0x2d3f
  .debug_loclists
-                0x0000000000000000      0x62c ./memory/pmm.c.o
+                0x0000000000000000      0x60c ./memory/pmm.c.o
  .debug_loclists
-                0x000000000000062c      0x629 ./memory/paging.c.o
+                0x000000000000060c      0x559 ./memory/paging.c.o
  .debug_loclists
-                0x0000000000000c55      0x101 ./term/term.c.o
+                0x0000000000000b65      0x167 ./acpi/acpi.c.o
  .debug_loclists
-                0x0000000000000d56     0x13c4 ./term/kprintf.c.o
+                0x0000000000000ccc      0x128 ./term/term.c.o
  .debug_loclists
-                0x000000000000211a      0x1c8 ./utils/mem.c.o
+                0x0000000000000df4     0x13c4 ./term/kprintf.c.o
  .debug_loclists
-                0x00000000000022e2      0x73a ./utils/num.c.o
+                0x00000000000021b8      0x1c8 ./utils/mem.c.o
  .debug_loclists
-                0x0000000000002a1c       0x5f ./kernel.c.o
+                0x0000000000002380      0x73a ./utils/num.c.o
  .debug_loclists
-                0x0000000000002a7b       0xe0 ./core/idt.c.o
+                0x0000000000002aba       0x5f ./kernel.c.o
  .debug_loclists
-                0x0000000000002b5b       0x1b ./core/panic.c.o
+                0x0000000000002b19       0xe0 ./core/idt.c.o
  .debug_loclists
-                0x0000000000002b76       0x1c ./io/io.c.o
+                0x0000000000002bf9       0x1b ./core/panic.c.o
  .debug_loclists
-                0x0000000000002b92       0xef ./io/serial.c.o
+                0x0000000000002c14       0x3c ./io/io.c.o
+ .debug_loclists
+                0x0000000000002c50       0xef ./io/serial.c.o
 
-.debug_aranges  0x0000000000000000      0x2a0
+.debug_aranges  0x0000000000000000      0x2d0
  .debug_aranges
                 0x0000000000000000       0x30 ./memory/pmm.c.o
  .debug_aranges
                 0x0000000000000030       0x30 ./memory/paging.c.o
  .debug_aranges
-                0x0000000000000060       0x30 ./term/term.c.o
+                0x0000000000000060       0x30 ./acpi/acpi.c.o
  .debug_aranges
-                0x0000000000000090       0x30 ./term/kprintf.c.o
+                0x0000000000000090       0x30 ./term/term.c.o
  .debug_aranges
-                0x00000000000000c0       0x30 ./utils/mem.c.o
+                0x00000000000000c0       0x30 ./term/kprintf.c.o
  .debug_aranges
-                0x00000000000000f0       0x30 ./utils/num.c.o
+                0x00000000000000f0       0x30 ./utils/mem.c.o
  .debug_aranges
-                0x0000000000000120       0x30 ./kernel.c.o
+                0x0000000000000120       0x30 ./utils/num.c.o
  .debug_aranges
-                0x0000000000000150       0x30 ./core/idt.c.o
+                0x0000000000000150       0x30 ./kernel.c.o
  .debug_aranges
-                0x0000000000000180       0x30 ./core/gdt.c.o
+                0x0000000000000180       0x30 ./core/idt.c.o
  .debug_aranges
-                0x00000000000001b0       0x30 ./core/panic.c.o
+                0x00000000000001b0       0x30 ./core/gdt.c.o
  .debug_aranges
-                0x00000000000001e0       0x30 ./io/io.c.o
+                0x00000000000001e0       0x30 ./core/panic.c.o
  .debug_aranges
-                0x0000000000000210       0x30 ./io/serial.c.o
+                0x0000000000000210       0x30 ./io/io.c.o
  .debug_aranges
-                0x0000000000000240       0x30 ./core/gdtasm.asm.o
+                0x0000000000000240       0x30 ./io/serial.c.o
  .debug_aranges
-                0x0000000000000270       0x30 ./core/idtasm.asm.o
+                0x0000000000000270       0x30 ./core/gdtasm.asm.o
+ .debug_aranges
+                0x00000000000002a0       0x30 ./core/idtasm.asm.o
 
 .debug_rnglists
-                0x0000000000000000      0x410
+                0x0000000000000000      0x444
  .debug_rnglists
-                0x0000000000000000       0xb3 ./memory/pmm.c.o
+                0x0000000000000000       0xc8 ./memory/pmm.c.o
  .debug_rnglists
-                0x00000000000000b3       0x97 ./memory/paging.c.o
+                0x00000000000000c8       0x6d ./memory/paging.c.o
  .debug_rnglists
-                0x000000000000014a       0x3b ./term/term.c.o
+                0x0000000000000135       0x34 ./acpi/acpi.c.o
  .debug_rnglists
-                0x0000000000000185      0x1d6 ./term/kprintf.c.o
+                0x0000000000000169       0x50 ./term/term.c.o
  .debug_rnglists
-                0x000000000000035b       0x13 ./utils/mem.c.o
+                0x00000000000001b9      0x1d6 ./term/kprintf.c.o
  .debug_rnglists
-                0x000000000000036e       0x59 ./utils/num.c.o
+                0x000000000000038f       0x13 ./utils/mem.c.o
  .debug_rnglists
-                0x00000000000003c7       0x1c ./core/idt.c.o
+                0x00000000000003a2       0x59 ./utils/num.c.o
  .debug_rnglists
-                0x00000000000003e3       0x2d ./io/serial.c.o
+                0x00000000000003fb       0x1c ./core/idt.c.o
+ .debug_rnglists
+                0x0000000000000417       0x2d ./io/serial.c.o
 
-.debug_line     0x0000000000000000     0x6131
- .debug_line    0x0000000000000000      0x630 ./memory/pmm.c.o
- .debug_line    0x0000000000000630      0x4b4 ./memory/paging.c.o
- .debug_line    0x0000000000000ae4      0x223 ./term/term.c.o
- .debug_line    0x0000000000000d07      0xc79 ./term/kprintf.c.o
- .debug_line    0x0000000000001980      0x23c ./utils/mem.c.o
- .debug_line    0x0000000000001bbc      0x297 ./utils/num.c.o
- .debug_line    0x0000000000001e53      0x17a ./kernel.c.o
- .debug_line    0x0000000000001fcd      0x1c4 ./core/idt.c.o
- .debug_line    0x0000000000002191       0x61 ./core/gdt.c.o
- .debug_line    0x00000000000021f2       0x7c ./core/panic.c.o
- .debug_line    0x000000000000226e       0x61 ./io/io.c.o
- .debug_line    0x00000000000022cf      0x250 ./io/serial.c.o
- .debug_line    0x000000000000251f       0x4b ./core/gdtasm.asm.o
- .debug_line    0x000000000000256a     0x3bc7 ./core/idtasm.asm.o
+.debug_line     0x0000000000000000     0x63b2
+ .debug_line    0x0000000000000000      0x5f2 ./memory/pmm.c.o
+ .debug_line    0x00000000000005f2      0x3eb ./memory/paging.c.o
+ .debug_line    0x00000000000009dd      0x30f ./acpi/acpi.c.o
+ .debug_line    0x0000000000000cec      0x25f ./term/term.c.o
+ .debug_line    0x0000000000000f4b      0xc79 ./term/kprintf.c.o
+ .debug_line    0x0000000000001bc4      0x23c ./utils/mem.c.o
+ .debug_line    0x0000000000001e00      0x297 ./utils/num.c.o
+ .debug_line    0x0000000000002097      0x17c ./kernel.c.o
+ .debug_line    0x0000000000002213      0x1c4 ./core/idt.c.o
+ .debug_line    0x00000000000023d7       0x61 ./core/gdt.c.o
+ .debug_line    0x0000000000002438       0x87 ./core/panic.c.o
+ .debug_line    0x00000000000024bf       0x91 ./io/io.c.o
+ .debug_line    0x0000000000002550      0x250 ./io/serial.c.o
+ .debug_line    0x00000000000027a0       0x4b ./core/gdtasm.asm.o
+ .debug_line    0x00000000000027eb     0x3bc7 ./core/idtasm.asm.o
 
-.debug_str      0x0000000000000000      0x962
- .debug_str     0x0000000000000000      0x244 ./memory/pmm.c.o
-                                        0x2d6 (size before relaxing)
- .debug_str     0x0000000000000244      0x1d0 ./memory/paging.c.o
+.debug_str      0x0000000000000000      0xd71
+ .debug_str     0x0000000000000000      0x23b ./memory/pmm.c.o
+                                        0x2dd (size before relaxing)
+ .debug_str     0x000000000000023b      0x1c3 ./memory/paging.c.o
                                         0x420 (size before relaxing)
- .debug_str     0x0000000000000414       0xb8 ./term/term.c.o
-                                        0x30f (size before relaxing)
- .debug_str     0x00000000000004cc      0x1c2 ./term/kprintf.c.o
+ .debug_str     0x00000000000003fe      0x401 ./acpi/acpi.c.o
+                                        0x694 (size before relaxing)
+ .debug_str     0x00000000000007ff       0xbc ./term/term.c.o
+                                        0x31c (size before relaxing)
+ .debug_str     0x00000000000008bb      0x1c2 ./term/kprintf.c.o
                                         0x34f (size before relaxing)
- .debug_str     0x000000000000068e       0x39 ./utils/mem.c.o
+ .debug_str     0x0000000000000a7d       0x2b ./utils/mem.c.o
                                         0x19d (size before relaxing)
- .debug_str     0x00000000000006c7       0x5e ./utils/num.c.o
+ .debug_str     0x0000000000000aa8       0x5e ./utils/num.c.o
                                         0x1e4 (size before relaxing)
- .debug_str     0x0000000000000725      0x131 ./kernel.c.o
-                                        0x4aa (size before relaxing)
- .debug_str     0x0000000000000856       0xa1 ./core/idt.c.o
+ .debug_str     0x0000000000000b06      0x15a ./kernel.c.o
+                                        0x4d9 (size before relaxing)
+ .debug_str     0x0000000000000c60       0xa1 ./core/idt.c.o
                                         0x270 (size before relaxing)
- .debug_str     0x00000000000008f7       0x1a ./core/gdt.c.o
+ .debug_str     0x0000000000000d01       0x1a ./core/gdt.c.o
                                         0x15b (size before relaxing)
- .debug_str     0x0000000000000911      0x153 ./core/panic.c.o
- .debug_str     0x0000000000000911       0x12 ./io/io.c.o
-                                        0x146 (size before relaxing)
- .debug_str     0x0000000000000923       0x3f ./io/serial.c.o
+ .debug_str     0x0000000000000d1b      0x15c ./core/panic.c.o
+ .debug_str     0x0000000000000d1b       0x17 ./io/io.c.o
+                                        0x150 (size before relaxing)
+ .debug_str     0x0000000000000d32       0x3f ./io/serial.c.o
                                         0x1ea (size before relaxing)
 
 .debug_line_str
-                0x0000000000000000      0x1ea
+                0x0000000000000000      0x261
  .debug_line_str
-                0x0000000000000000       0xba ./memory/pmm.c.o
-                                         0xe1 (size before relaxing)
+                0x0000000000000000       0xab ./memory/pmm.c.o
+                                        0x110 (size before relaxing)
  .debug_line_str
-                0x00000000000000ba       0x74 ./memory/paging.c.o
+                0x00000000000000ab       0x65 ./memory/paging.c.o
                                         0x12a (size before relaxing)
  .debug_line_str
-                0x000000000000012e       0x13 ./term/term.c.o
+                0x0000000000000110       0x9a ./acpi/acpi.c.o
+                                        0x151 (size before relaxing)
+ .debug_line_str
+                0x00000000000001aa       0x13 ./term/term.c.o
                                          0xd8 (size before relaxing)
  .debug_line_str
-                0x0000000000000141       0x23 ./term/kprintf.c.o
+                0x00000000000001bd       0x23 ./term/kprintf.c.o
                                          0xd6 (size before relaxing)
  .debug_line_str
-                0x0000000000000164        0xc ./utils/mem.c.o
+                0x00000000000001e0        0xc ./utils/mem.c.o
                                          0xa3 (size before relaxing)
  .debug_line_str
-                0x0000000000000170        0xc ./utils/num.c.o
+                0x00000000000001ec        0xc ./utils/num.c.o
                                          0x94 (size before relaxing)
  .debug_line_str
-                0x000000000000017c       0x15 ./kernel.c.o
-                                         0xf1 (size before relaxing)
+                0x00000000000001f8       0x15 ./kernel.c.o
+                                         0xf9 (size before relaxing)
  .debug_line_str
-                0x0000000000000191       0x16 ./core/idt.c.o
+                0x000000000000020d       0x16 ./core/idt.c.o
                                          0xb4 (size before relaxing)
  .debug_line_str
-                0x00000000000001a7        0xb ./core/gdt.c.o
+                0x0000000000000223        0xb ./core/gdt.c.o
                                          0x98 (size before relaxing)
  .debug_line_str
-                0x00000000000001b2        0xd ./core/panic.c.o
-                                         0x68 (size before relaxing)
+                0x000000000000022e        0xd ./core/panic.c.o
+                                         0x7f (size before relaxing)
  .debug_line_str
-                0x00000000000001bf        0x8 ./io/io.c.o
+                0x000000000000023b        0x8 ./io/io.c.o
                                          0x47 (size before relaxing)
  .debug_line_str
-                0x00000000000001c7       0x23 ./io/serial.c.o
+                0x0000000000000243       0x1e ./io/serial.c.o
                                          0xae (size before relaxing)
 
 .comment        0x0000000000000000       0x12
  .comment       0x0000000000000000       0x12 ./memory/pmm.c.o
                                          0x13 (size before relaxing)
  .comment       0x0000000000000012       0x13 ./memory/paging.c.o
+ .comment       0x0000000000000012       0x13 ./acpi/acpi.c.o
  .comment       0x0000000000000012       0x13 ./term/term.c.o
  .comment       0x0000000000000012       0x13 ./term/kprintf.c.o
  .comment       0x0000000000000012       0x13 ./utils/mem.c.o

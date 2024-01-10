@@ -34,6 +34,11 @@ static volatile struct limine_memmap_request memmap_request = {
     .revision = 0
 };
 
+static volatile struct limine_rsdp_request rsdp_request = {
+    .id = LIMINE_RSDP_REQUEST,
+    .revision = 0
+};
+
 // Halt and catch fire function.
 static void hcf(void) {
     asm ("cli");
@@ -65,25 +70,13 @@ void _start(void) {
 
     // Initialise the serial port.
     init_serial();
-    
-    write_serial_string("=== okeOS2 ===\nFramebuffer: ");
-    write_serial_u64(framebuffer->width, 10);
-    write_serial_string(" x ");
-    write_serial_u64(framebuffer->height, 10);
-    write_serial_string(" x ");
-    write_serial_u64(framebuffer->bpp, 10);
-    write_serial_string("\n");
 
-    write_serial_string("Kernel:\n  PhysBase: 0x");
-    write_serial_u64(kernel_request.response->physical_base, 16);
-    write_serial_string("\n");
-    write_serial_string("  VirtBase: 0x");
-    write_serial_u64(kernel_request.response->virtual_base, 16);
-    write_serial_string("\n");
-    write_serial_string("  HHDM: ");
-    write_serial_u64(hhdm.offset, 16);
-    write_serial_string("\n");
+    kprintf("=== okeOS2 ===\nFramebuffer: %ux%ux%u at 0x%llx\n", framebuffer->width, framebuffer->height, framebuffer->bpp, framebuffer->address);
 
+    kprintf("Kernel:\n");
+    kprintf("  PhysBase: 0x%llx\n", kernel_request.response->physical_base);
+    kprintf("  VirtBase: 0x%llx\n", kernel_request.response->virtual_base);
+    kprintf("  HHDM: 0x%llx\n", hhdm.offset);
 
     write_serial_string("Initialising GDT...\n");
     init_gdt();
@@ -119,5 +112,9 @@ void _start(void) {
     kprintf("Enabling Paging...\n");
     init_paging(kernel_request.response->virtual_base, kernel_request.response->physical_base, memmap_request.response);
     kprintf("if you can read this, paging works :yippee:\n");
+
+    kprintf("Initialising ACPI...\n");
+    init_acpi(rsdp_request.response->address);
+    kprintf("Initialised ACPI.\n");
     hcf();
 }

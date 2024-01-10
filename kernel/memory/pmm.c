@@ -114,7 +114,7 @@ void init_pmm(struct limine_memmap_entry** memmap, uint64_t memmap_entries) {
     }
 
     // Mark the bitmap itself as allocated.
-    for (uint64_t i = (uint64_t)HIHA2PHYS((uint64_t)bitmap) / PMM_PAGE_SIZE; i < (uint64_t)HIHA2PHYS((uint64_t)bitmap) / PMM_PAGE_SIZE + bitmap_size / PMM_PAGE_SIZE; i++) {
+    for (uint64_t i = (uint64_t)HIHA2PHYS((uint64_t)bitmap) / PMM_PAGE_SIZE; i < ((uint64_t)HIHA2PHYS((uint64_t)bitmap) / PMM_PAGE_SIZE + bitmap_size / PMM_PAGE_SIZE)+1; i++) {
         write_serial_string("PMM: Marking bitmap page ");
         write_serial_u64(i, 10);
         write_serial_string(" (0x");

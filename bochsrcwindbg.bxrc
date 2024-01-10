@@ -1,4 +1,4 @@
-megs: 256
+megs: 5
 display_library: win32, options="gui_debug"
 sound: driver=none, waveoutdrv=dummy, midioutdrv=dummy
 ata0-master: type=cdrom, path=kernel.iso, status=inserted
